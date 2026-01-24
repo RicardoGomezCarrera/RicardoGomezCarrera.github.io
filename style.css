@@ -85,15 +85,16 @@ header {
 }
 
 header img.profile {
-  width: 180px;
-  height: 180px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 header h1 {
-  margin-bottom: 10px;
+  font-size: 22px;
+  margin-bottom: 8px;
 }
 
 header p {
@@ -112,13 +113,12 @@ header p.affiliation {
 }
 
 header .links {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 header .links a {
-  display: inline-block;
-  margin-right: 15px;
-  margin-bottom: 8px;
+  display: block;
+  margin-bottom: 6px;
   font-size: 13px;
 }
 

@@ -114,8 +114,8 @@ header {
 }
 
 header img.profile {
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
@@ -312,8 +312,8 @@ footer {
   }
 
   header img.profile {
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
   }
 }
 

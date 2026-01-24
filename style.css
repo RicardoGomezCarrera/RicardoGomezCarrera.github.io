@@ -15,8 +15,14 @@ body {
   right: 0;
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
-  padding: 15px 50px;
+  padding: 15px 0;
   z-index: 1000;
+}
+
+.top-nav-inner {
+  width: 860px;
+  margin: 0 auto;
+  padding-left: 360px;
 }
 
 .top-nav a {
@@ -257,6 +263,12 @@ footer {
   div.wrapper {
     width: auto;
     margin: 0;
+  }
+
+  .top-nav-inner {
+    width: auto;
+    padding-left: 0;
+    text-align: center;
   }
 
   header, section, footer {

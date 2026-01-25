@@ -1,0 +1,262 @@
+================================================================================
+        HOW TO EDIT YOUR WEBSITE USING VS CODE AND GITHUB
+                    Step-by-Step Guide for Beginners
+================================================================================
+
+This guide explains how to make changes to your website's style (colors, sizes,
+spacing, etc.) and publish those changes so they appear on your live website.
+
+
+================================================================================
+PART 1: OPENING YOUR PROJECT IN VS CODE
+================================================================================
+
+1. Open VS Code
+   - Find "Visual Studio Code" in your Start menu and click it
+   - Or double-click the VS Code icon on your desktop
+
+2. Open your website folder
+   - Click "File" in the top menu
+   - Click "Open Folder..."
+   - Navigate to: Documents > GitHub > RicardoGomezCarrera.github.io
+   - Click "Select Folder"
+
+3. You should now see your website files on the left side:
+   - index.html (your homepage)
+   - research.html (research page)
+   - data.html (data page)
+   - style.css (THIS IS WHERE YOU CHANGE THE LOOK OF YOUR SITE)
+   - profile.jpg (your photo)
+   - CV_Ricardo_Gomez-Carrera.pdf (your CV)
+
+
+================================================================================
+PART 2: MAKING STYLE CHANGES
+================================================================================
+
+The file "style.css" controls how your website looks. Here's how to edit it:
+
+1. Click on "style.css" in the left panel to open it
+
+2. Common things you might want to change:
+
+   A) PROFILE PHOTO SIZE (currently 180px)
+      - Find this text: "header img.profile {"
+      - Below it you'll see "width: 180px;" and "height: 180px;"
+      - Change 180 to any number you want (e.g., 150, 200, etc.)
+      - IMPORTANT: Change BOTH width and height to the same number
+
+   B) SPACING BETWEEN PHOTO AND NAME (currently 15px)
+      - Find "header img.profile {"
+      - Look for "margin-bottom: 15px;"
+      - Change 15 to a smaller number (less space) or larger (more space)
+
+   C) LINK COLOR (currently blue #0066cc)
+      - Find "a {" (this controls all links)
+      - Look for "color: #0066cc;"
+      - Change #0066cc to another color code
+      - Color examples:
+        * #0066cc = blue
+        * #cc0000 = red
+        * #006600 = green
+        * #333333 = dark gray
+        * #000000 = black
+
+   D) FONT SIZE
+      - Find "body {" at the top of the file
+      - Look for "font: 14px/1.5"
+      - Change 14px to 15px or 16px for larger text
+
+   E) NAVIGATION POSITION (currently 690px from left)
+      - Find ".top-nav-inner {"
+      - Look for "padding-left: 690px;"
+      - Increase the number to move nav right, decrease to move left
+
+3. After making changes:
+   - Press Ctrl+S to save the file
+   - You'll see the white dot next to the filename disappear (means it's saved)
+
+
+================================================================================
+PART 3: PREVIEWING YOUR CHANGES LOCALLY (OPTIONAL)
+================================================================================
+
+Before publishing, you can preview changes on your computer:
+
+1. Find your "index.html" file in the folder
+2. Right-click on it
+3. Select "Open with" > your web browser (Chrome, Edge, etc.)
+4. You'll see your website with the changes (only on your computer)
+
+Note: This is just a preview. Others won't see changes until you complete Part 4.
+
+
+================================================================================
+PART 4: PUBLISHING YOUR CHANGES TO THE LIVE WEBSITE
+================================================================================
+
+After saving your changes, you need to "push" them to GitHub:
+
+METHOD A: Using VS Code (Recommended for beginners)
+---------------------------------------------------
+
+1. Look at the left sidebar in VS Code
+   - Find the icon that looks like a branching tree (Source Control)
+   - It might show a number (how many files changed)
+   - Click on it
+
+2. You'll see your changed files listed
+   - They appear under "Changes"
+
+3. Stage your changes
+   - Hover over the file you changed (e.g., style.css)
+   - Click the "+" icon that appears (Stage Changes)
+   - Or click the "+" next to "Changes" to stage all files
+
+4. Write a commit message
+   - In the text box at the top that says "Message"
+   - Type a short description like: "Update avatar size"
+   - This helps you remember what you changed
+
+5. Commit your changes
+   - Click the checkmark icon (✓) above the message box
+   - Or press Ctrl+Enter
+
+6. Push to GitHub
+   - Click the "..." menu (three dots) at the top of Source Control
+   - Click "Push"
+   - Or look for the sync/cloud icon and click it
+
+7. Wait about 30-60 seconds, then refresh your website to see changes!
+
+
+METHOD B: Using Command Line (Terminal)
+---------------------------------------
+
+1. In VS Code, open the terminal
+   - Click "Terminal" in the top menu
+   - Click "New Terminal"
+
+2. Type these commands one at a time, pressing Enter after each:
+
+   git add .
+
+   git commit -m "Your description of changes here"
+
+   git push
+
+3. Wait about 30-60 seconds, then refresh your website to see changes!
+
+
+================================================================================
+PART 5: CHECKING YOUR LIVE WEBSITE
+================================================================================
+
+1. Open your web browser (Chrome, Edge, Safari, etc.)
+
+2. Go to: https://ricardogomezcarrera.github.io
+
+3. If you don't see your changes:
+   - Press Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac) to hard refresh
+   - This clears the browser cache and loads the newest version
+
+4. Check all three pages:
+   - Home: https://ricardogomezcarrera.github.io
+   - Research: https://ricardogomezcarrera.github.io/research.html
+   - Data: https://ricardogomezcarrera.github.io/data.html
+
+
+================================================================================
+TROUBLESHOOTING COMMON ISSUES
+================================================================================
+
+ISSUE: Changes not showing on the live website
+SOLUTION:
+- Make sure you saved the file (Ctrl+S)
+- Make sure you committed AND pushed (both steps required)
+- Wait 1-2 minutes for GitHub to update
+- Hard refresh your browser (Ctrl+Shift+R)
+
+ISSUE: Website looks broken after changes
+SOLUTION:
+- You might have accidentally deleted something important
+- Check for missing semicolons (;) or curly braces ({ })
+- Each CSS rule should look like this:
+
+  selector {
+    property: value;
+  }
+
+ISSUE: VS Code shows error messages
+SOLUTION:
+- Look for red underlines in your code
+- Make sure every { has a matching }
+- Make sure every property ends with ;
+
+ISSUE: Can't push to GitHub (authentication error)
+SOLUTION:
+- VS Code might ask you to sign in to GitHub
+- Click "Sign in" and follow the prompts
+- Use your GitHub username: RicardoGomezCarrera
+
+
+================================================================================
+QUICK REFERENCE: COMMON CSS PROPERTIES
+================================================================================
+
+SIZE PROPERTIES:
+- width: 180px;        (how wide something is)
+- height: 180px;       (how tall something is)
+- font-size: 14px;     (text size)
+
+SPACING PROPERTIES:
+- margin: 10px;        (space OUTSIDE an element)
+- padding: 10px;       (space INSIDE an element)
+- margin-top: 10px;    (space above)
+- margin-bottom: 10px; (space below)
+- margin-left: 10px;   (space to the left)
+- margin-right: 10px;  (space to the right)
+
+COLOR PROPERTIES:
+- color: #0066cc;           (text color)
+- background-color: #fff;   (background color)
+- border-color: #e5e5e5;    (border color)
+
+USEFUL COLOR CODES:
+- #ffffff or #fff = white
+- #000000 or #000 = black
+- #0066cc = blue
+- #cc0000 = red
+- #006600 = green
+- #f4f4f4 = light gray
+- #333333 = dark gray
+
+
+================================================================================
+EDITING CONTENT (TEXT) ON YOUR WEBSITE
+================================================================================
+
+To change the actual text on your website (not the styling):
+
+1. Open the HTML file you want to edit on VS code:
+   - index.html = homepage
+   - research.html = research page
+   - data.html = data page
+
+2. Find the text you want to change
+
+3. Edit the text between the HTML tags
+   Example: <p>Your text here</p>
+
+4. Save (Ctrl+S), commit, and push (same as style changes)
+
+
+================================================================================
+NEED HELP?
+================================================================================
+
+- GitHub Pages Documentation: https://docs.github.com/en/pages
+- VS Code Basics: https://code.visualstudio.com/docs/getstarted/introvideos
+- CSS Reference: https://www.w3schools.com/css/
+
+================================================================================

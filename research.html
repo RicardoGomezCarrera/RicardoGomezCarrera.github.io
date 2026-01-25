@@ -36,14 +36,20 @@
                 <li>
                     <strong>From Playtime to Primetime</strong><br>
                     <a href="research/working_papers/Gomez-Carrera R. – From Playtime to Primetime.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "From Playtime to Primetime" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>Big in Health</strong><br>
                     <a href="research/working_papers/Big_in_Health.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Big in Health" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>PIER Paper Submission</strong><br>
                     <a href="research/working_papers/24-029 PIER Paper Submission.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "PIER Paper Submission" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
             </ul>
 
@@ -54,6 +60,8 @@
                 <li>
                     <strong>Sectoral Supply and Demand Shocks</strong><br>
                     <a href="research/publications/Sectoral supply and demand shocks.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Sectoral Supply and Demand Shocks" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
             </ul>
 
@@ -65,16 +73,22 @@
                     <strong>Extending WID Population Series: Projections 2024-2100, Age & Gender Breakdowns</strong><br>
                     <span class="institution">World Inequality Lab Technical Note 2024-12</span><br>
                     <a href="research/technical_notes/WorldInequalityLab_TechnicalNote_2024_12_Extending-WID-Population-Series_Projections-2024-2100-Age-Gender-Breakdowns_Final.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Extending WID Population Series" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>Global Inequality Update</strong><br>
                     <span class="institution">World Inequality Lab Technical Note 2024-11</span><br>
                     <a href="research/technical_notes/WorldInequalityLab_TechnicalNote_2024_11_Global-Inequality-Update_Final.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Global Inequality Update" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>Factores Cíclicos</strong><br>
                     <span class="institution">Banco de México</span><br>
                     <a href="research/technical_notes/Factores_ciclicos_banxico.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Factores Cíclicos" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
             </ul>
 
@@ -87,14 +101,20 @@
                     <span class="award-detail">Joaquín Xirau Icaza Economics Award 2024 – Colegio de México</span><br>
                     <a href="research/previous_working_papers/Mandatory_Preschool_and_Testscores.pdf" target="_blank" class="paper-link">[Paper]</a>
                     <a href="https://www.youtube.com/watch?v=sLlsDI6skro" target="_blank" class="paper-link">[Presentation]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Mandatory Preschool and Test Scores" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>Ecobici</strong><br>
                     <a href="research/previous_working_papers/Ecobici_2023_english.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Ecobici" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>Undergraduate Thesis</strong><br>
                     <a href="research/previous_working_papers/Undergrad thesis.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Undergraduate Thesis" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
             </ul>
 
@@ -115,10 +135,14 @@
                 <li>
                     <strong>Effect of GDP and Unemployment on Crime</strong><br>
                     <a href="research/other_exercises/Effect of GDP and unemployment on crime.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Effect of GDP and Unemployment on Crime" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
                 <li>
                     <strong>Electric vs Gasoline</strong><br>
                     <a href="research/other_exercises/ElectricVsGasoline_Final.pdf" target="_blank" class="paper-link">[Paper]</a>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Abstract]</a>
+                    <div class="abstract">Abstract text for "Electric vs Gasoline" goes here. Replace this placeholder with your actual abstract.</div>
                 </li>
             </ul>
         </section>
@@ -127,5 +151,18 @@
             <p>Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
         </footer>
     </div>
+
+    <script>
+        function toggleAbstract(element) {
+            var abstract = element.nextElementSibling;
+            if (abstract.classList.contains('show')) {
+                abstract.classList.remove('show');
+                element.textContent = '[Abstract]';
+            } else {
+                abstract.classList.add('show');
+                element.textContent = '[Hide Abstract]';
+            }
+        }
+    </script>
 </body>
 </html>

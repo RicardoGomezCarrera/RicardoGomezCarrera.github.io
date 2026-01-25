@@ -247,6 +247,33 @@ section ul li {
   font-size: 13px;
 }
 
+/* Abstract toggle */
+.abstract-toggle {
+  font-size: 13px;
+  cursor: pointer;
+  color: #0066cc;
+}
+
+.abstract-toggle:hover {
+  color: #004499;
+  text-decoration: underline;
+}
+
+.abstract {
+  display: none;
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #f9f9f9;
+  border-left: 3px solid #e5e5e5;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.abstract.show {
+  display: block;
+}
+
 /* Footer */
 footer {
   width: 270px;

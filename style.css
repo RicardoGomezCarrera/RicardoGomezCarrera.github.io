@@ -274,6 +274,22 @@ section ul li {
   display: block;
 }
 
+/* Section navigation */
+.section-nav {
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.section-nav a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.section-nav a:hover {
+  text-decoration: underline;
+}
+
 /* Footer */
 footer {
   width: 270px;

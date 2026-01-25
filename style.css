@@ -22,7 +22,7 @@ body {
 .top-nav-inner {
   width: 860px;
   margin: 0 auto;
-  padding-left: 690px;
+  padding-left: 694px;
 }
 
 .top-nav a {
@@ -261,7 +261,7 @@ footer {
 /* Responsive design */
 @media print, screen and (max-width: 960px) {
   body {
-    padding-top: 80px;
+    padding-top: 90px;
   }
 
   div.wrapper {
@@ -283,7 +283,7 @@ footer {
 
   header {
     padding-right: 0;
-    padding-top: 20px;
+    padding-top: 40px;
     text-align: center;
   }
 

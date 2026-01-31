@@ -52,16 +52,19 @@
             <ul>
                 <li>
                     <strong>The Long-Term Effects of Human Capital Investments</strong><br>
-                    <span class="institution">My work in progress studies how early-life human capital investments shape long-term educational and labor market outcomes. I focus on understanding how these policies affect different social groups and contribute to reducing inequality of opportunity. In particular, I compare the impacts of targeted (means-tested) and universal policies to assess how different designs shape long-run inequality and mobility.</span>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Description]</a>
+                    <div class="abstract">My work in progress studies how early-life human capital investments shape long-term educational and labor market outcomes. I focus on understanding how these policies affect different social groups and contribute to reducing inequality of opportunity. In particular, I compare the impacts of targeted (means-tested) and universal policies to assess how different designs shape long-run inequality and mobility.</div>
                 </li>
                 <li>
                     <strong>Tax Design, Firm Organization, and Resource Allocation</strong><br>
                     <span class="institution">with <a href="https://www.karan-mishra.com/" target="_blank">Karan Mishra</a></span><br>
-                    <span class="institution">This project examines how corporate tax design influences firm organization, labor market outcomes, and the allocation of capital and labor. It studies how tax-induced distortions shape firm boundaries, investment decisions, and survival, and how these micro-level responses affect productivity and economic efficiency in developing economies.</span>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Description]</a>
+                    <div class="abstract">This project examines how corporate tax design influences firm organization, labor market outcomes, and the allocation of capital and labor. It studies how tax-induced distortions shape firm boundaries, investment decisions, and survival, and how these micro-level responses affect productivity and economic efficiency in developing economies.</div>
                 </li>
                 <li>
-                    <strong>Education Systems and Long-Run Inequality</strong><br>
-                    <span class="institution">This project studies how long-term changes in education access and education quality relate to income inequality across countries. Using historical cross-country data since the 19th century, it examines how different trajectories of educational expansion shape inequality dynamics over time, and how the balance between expanding access and improving quality affects long-run economic and social outcomes.</span>
+                    <strong>Education Systems and Inequality over Two Centuries</strong><br>
+                    <a class="abstract-toggle" onclick="toggleAbstract(this)">[Description]</a>
+                    <div class="abstract">This project studies how long-term changes in education access and education quality relate to income inequality across countries. Using historical cross-country data since the 19th century, it examines how different trajectories of educational expansion shape inequality dynamics over time, and how the balance between expanding access and improving quality affects long-run economic and social outcomes.</div>
                 </li>
             </ul>
 
@@ -194,12 +197,13 @@
     <script>
         function toggleAbstract(element) {
             var abstract = element.nextElementSibling;
+            var label = element.textContent.replace('[', '').replace(']', '').replace('Hide ', '');
             if (abstract.classList.contains('show')) {
                 abstract.classList.remove('show');
-                element.textContent = '[Abstract]';
+                element.textContent = '[' + label + ']';
             } else {
                 abstract.classList.add('show');
-                element.textContent = '[Hide Abstract]';
+                element.textContent = '[Hide ' + label + ']';
             }
         }
     </script>

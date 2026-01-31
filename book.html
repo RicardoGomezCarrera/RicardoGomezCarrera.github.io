@@ -50,6 +50,33 @@
 
             <hr>
 
+            <h3>Policy Engagement</h3>
+            <p>I was invited as an expert speaker to present the highlights of the World Inequality Report 2026 to the following venues:</p>
+            <ul>
+                <li>
+                    <strong>European Parliament – <a href="https://www.europarl.europa.eu/committees/en/empl/home/highlights" target="_blank">Employment and Social Affairs Committee</a></strong> (January 2026)<br>
+                    <a class="abstract-toggle" onclick="toggleDescription(this)">[Description]</a>
+                    <div class="abstract">The parliamentary body responsible for shaping EU policies on employment, social protection, working conditions, and inclusion. I presented the highlights of the World Inequality Report 2026 to political group coordinators as part of a strategic meeting on future policy priorities.</div>
+                </li>
+                <li>
+                    <strong>United Nations – <a href="https://www.un.org/en/desa" target="_blank">Department of Economic and Social Affairs</a></strong> (February 2026)<br>
+                    <a class="abstract-toggle" onclick="toggleDescription(this)">[Description]</a>
+                    <div class="abstract">The UN department responsible for global social and economic development policy. I was invited to present key findings of the World Inequality Report 2026 in a webinar informing the preparation of the World Social Report 2027.</div>
+                </li>
+                <li>
+                    <strong>European Commission – <a href="https://commission.europa.eu/about/departments-and-executive-agencies/reform-and-investment-task-force_en" target="_blank">Reform and Investment Task Force</a></strong> (March 2026)<br>
+                    <a class="abstract-toggle" onclick="toggleDescription(this)">[Description]</a>
+                    <div class="abstract">The body responsible for managing the EU's Recovery and Resilience Facility and supporting Member States in the design and implementation of structural reforms and public investments.</div>
+                </li>
+                <li>
+                    <strong>European Commission – <a href="https://commission.europa.eu/about/departments-and-executive-agencies/economic-and-financial-affairs_en" target="_blank">Directorate-General for Economic and Financial Affairs</a></strong> (March 2026)<br>
+                    <a class="abstract-toggle" onclick="toggleDescription(this)">[Description]</a>
+                    <div class="abstract">The department in charge of EU economic governance, macroeconomic surveillance, and fiscal and financial policy coordination.</div>
+                </li>
+            </ul>
+
+            <hr>
+
             <h3>Media Coverage</h3>
 
             <p><strong>Audio:</strong>
@@ -93,5 +120,18 @@
             <p>Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
         </footer>
     </div>
+
+    <script>
+        function toggleDescription(element) {
+            var desc = element.nextElementSibling;
+            if (desc.classList.contains('show')) {
+                desc.classList.remove('show');
+                element.textContent = '[Description]';
+            } else {
+                desc.classList.add('show');
+                element.textContent = '[Hide Description]';
+            }
+        }
+    </script>
 </body>
 </html>

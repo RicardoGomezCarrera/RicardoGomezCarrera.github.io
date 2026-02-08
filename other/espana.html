@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>España 2026 — Boda, Andalucía & Toledo</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --color-bg:#faf9f7;
+  --color-surface:#fff;
+  --color-text:#1a1a1a;
+  --color-text-light:#5a5a5a;
+  --color-accent:#c0392b;
+  --color-accent-light:#e74c3c;
+  --color-gold:#d4a843;
+  --color-blue:#2c6fbb;
+  --color-green:#27ae60;
+  --radius:12px;
+  --shadow:0 2px 16px rgba(0,0,0,.08);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.12);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'Inter',-apple-system,sans-serif;
+  --max-w:1200px;
+  --nav-h:60px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+body{font-family:var(--font-body);background:var(--color-bg);color:var(--color-text);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06);height:var(--nav-h);display:flex;align-items:center;justify-content:center;gap:4px;padding:0 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav a{text-decoration:none;color:var(--color-text-light);font-size:.8rem;font-weight:500;padding:8px 14px;border-radius:8px;white-space:nowrap;transition:all .2s}
+.nav a:hover,.nav a.active{background:var(--color-accent);color:#fff}
+
+/* HERO */
+.hero{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 20px 80px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=80') center/cover;opacity:.2}
+.hero-content{position:relative;max-width:700px}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4rem);font-weight:700;margin-bottom:12px;letter-spacing:-.02em}
+.hero .subtitle{font-size:clamp(1rem,2.5vw,1.3rem);font-weight:300;opacity:.85;margin-bottom:8px}
+.hero .dates{font-size:1rem;opacity:.7;margin-bottom:24px}
+.hero .event-badge{display:inline-flex;align-items:center;gap:8px;background:var(--color-accent);padding:10px 24px;border-radius:50px;font-weight:600;font-size:.95rem;margin-bottom:28px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.4)}50%{box-shadow:0 0 0 12px rgba(192,57,43,0)}}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:6px 16px;border-radius:50px;font-size:.8rem;font-weight:500;backdrop-filter:blur(4px)}
+
+/* SECTIONS */
+section{padding:60px 20px}
+.container{max-width:var(--max-w);margin:0 auto}
+.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;margin-bottom:8px;text-align:center}
+.section-sub{text-align:center;color:var(--color-text-light);margin-bottom:40px;font-size:.95rem}
+
+/* SUMMARY CARDS */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:40px}
+.summary-card{background:var(--color-surface);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);text-align:center;transition:transform .2s}
+.summary-card:hover{transform:translateY(-4px)}
+.summary-card .icon{font-size:2rem;margin-bottom:12px}
+.summary-card h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:6px}
+.summary-card p{color:var(--color-text-light);font-size:.85rem}
+
+/* MAP */
+#map{height:500px;border-radius:var(--radius);box-shadow:var(--shadow)}
+.map-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;justify-content:center}
+.map-btn{padding:8px 16px;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-size:.8rem;font-family:var(--font-body);font-weight:500;transition:all .2s}
+.map-btn:hover,.map-btn.active{background:var(--color-accent);color:#fff;border-color:var(--color-accent)}
+.filter-group{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px}
+.filter-group label{font-size:.8rem;color:var(--color-text-light);font-weight:500}
+
+/* TIMELINE */
+.timeline{max-width:800px;margin:0 auto}
+.day-card{background:var(--color-surface);border-radius:var(--radius);margin-bottom:16px;box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s}
+.day-card:hover{box-shadow:var(--shadow-lg)}
+.day-card.wedding{border-left:4px solid var(--color-accent)}
+.day-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;user-select:none}
+.day-header:focus{outline:2px solid var(--color-accent);outline-offset:-2px}
+.day-num{width:48px;height:48px;border-radius:50%;background:var(--color-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex-shrink:0}
+.day-card.wedding .day-num{background:var(--color-gold)}
+.day-info{flex:1;min-width:0}
+.day-info h3{font-family:var(--font-display);font-size:1.05rem;margin-bottom:2px}
+.day-info .day-meta{font-size:.8rem;color:var(--color-text-light)}
+.day-chevron{font-size:1.2rem;transition:transform .3s;color:var(--color-text-light)}
+.day-card.open .day-chevron{transform:rotate(180deg)}
+.day-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.day-body-inner{padding:0 24px 24px;padding-left:88px}
+.day-body-inner h4{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--color-accent);margin:16px 0 8px}
+.day-body-inner ul{list-style:none;padding:0}
+.day-body-inner li{padding:4px 0;font-size:.9rem;color:var(--color-text-light);padding-left:16px;position:relative}
+.day-body-inner li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--color-accent)}
+.day-body-inner .transport-tag{display:inline-flex;align-items:center;gap:4px;background:#e8f4fd;color:var(--color-blue);padding:4px 12px;border-radius:6px;font-size:.8rem;font-weight:500;margin-top:8px}
+.day-body-inner .tip{background:#f0f9f0;border-left:3px solid var(--color-green);padding:8px 12px;border-radius:0 6px 6px 0;font-size:.82rem;color:#2d6a2d;margin-top:8px}
+.map-link{display:inline-flex;align-items:center;gap:4px;color:var(--color-blue);font-size:.82rem;cursor:pointer;font-weight:500;margin-top:8px;border:none;background:none;font-family:var(--font-body)}
+.map-link:hover{text-decoration:underline}
+
+/* CITIES */
+.cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.city-card{border-radius:var(--radius);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow);transition:transform .2s}
+.city-card:hover{transform:translateY(-4px)}
+.city-card img{width:100%;height:200px;object-fit:cover;cursor:pointer;transition:opacity .2s}
+.city-card img:hover{opacity:.9}
+.city-card .city-info{padding:20px}
+.city-card h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:4px}
+.city-card p{font-size:.85rem;color:var(--color-text-light)}
+
+/* TRANSPORT */
+.transport-section{max-width:800px;margin:0 auto}
+.transport-card{background:var(--color-surface);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);margin-bottom:20px}
+.transport-card h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.transport-card .price{color:var(--color-accent);font-size:2rem;font-weight:700}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}
+.two-col h4{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.includes{color:var(--color-green)}
+.excludes{color:var(--color-accent)}
+.two-col ul{list-style:none;padding:0}
+.two-col li{padding:4px 0;font-size:.9rem;color:var(--color-text-light)}
+.two-col li::before{content:'✓';margin-right:8px;font-weight:700}
+.excludes-list li::before{content:'✗';color:var(--color-accent)}
+.advice-list{list-style:none;padding:0;margin-top:16px}
+.advice-list li{padding:8px 0;font-size:.9rem;color:var(--color-text-light);border-bottom:1px solid #f0f0f0;padding-left:24px;position:relative}
+.advice-list li::before{content:'💡';position:absolute;left:0}
+
+/* CHECKLIST */
+.checklist{max-width:700px;margin:0 auto}
+.checklist-group{margin-bottom:24px}
+.checklist-group h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #eee}
+.check-item{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:.9rem}
+.check-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--color-accent);cursor:pointer;flex-shrink:0}
+.print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--color-accent);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:background .2s;margin-top:20px}
+.print-btn:hover{background:var(--color-accent-light)}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.9);align-items:center;justify-content:center;padding:20px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:8px;object-fit:contain}
+.lightbox-close{position:absolute;top:20px;right:20px;color:#fff;font-size:2rem;cursor:pointer;background:none;border:none;line-height:1}
+
+/* ROUTE TAG — Rome2Rio style */
+.route-tag{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#e8f4fd,#dbeefe);border:1px solid #b8d8f8;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:500;color:#1a5276;margin-top:10px;flex-wrap:wrap}
+.route-tag .route-icon{font-size:1.1rem}
+.route-tag .route-duration{font-weight:700;color:var(--color-blue)}
+.route-tag .route-mode{color:#5a5a5a;font-weight:400}
+.route-tag .route-arrow{color:#aaa;font-size:.7rem}
+
+/* NIGHTS TABLE */
+.nights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px}
+.night-chip{background:var(--color-surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);text-align:center;transition:transform .2s}
+.night-chip:hover{transform:translateY(-3px)}
+.night-chip .night-count{font-size:1.8rem;font-weight:700;color:var(--color-accent);font-family:var(--font-display)}
+.night-chip .night-city{font-size:.82rem;color:var(--color-text-light);margin-top:4px}
+
+/* COSTS TABLE */
+.costs-card{background:var(--color-surface);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);max-width:600px;margin:0 auto}
+.costs-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.costs-table th{text-align:left;padding:10px 8px;border-bottom:2px solid #eee;font-family:var(--font-display);font-weight:600;color:var(--color-text)}
+.costs-table td{padding:10px 8px;border-bottom:1px solid #f5f5f5}
+.costs-table td:last-child{text-align:right;font-weight:600;color:var(--color-text)}
+.costs-table tr.total-row td{border-top:2px solid var(--color-accent);font-weight:700;font-size:1rem;color:var(--color-accent);padding-top:14px}
+.costs-table tr.total-row-alt td{color:var(--color-blue);font-weight:600}
+
+/* SLEEP TAG */
+.sleep-tag{display:inline-flex;align-items:center;gap:4px;background:#fef3e8;color:#b45309;padding:4px 12px;border-radius:6px;font-size:.78rem;font-weight:500;margin-top:6px}
+
+/* FOOTER */
+.footer{text-align:center;padding:40px 20px;color:var(--color-text-light);font-size:.82rem;border-top:1px solid #eee}
+
+/* PRINT */
+@media print{
+  .nav,.hero,.map-controls,#map,.filter-group,.map-link,.print-btn,.lightbox,.footer{display:none!important}
+  section{padding:20px 0;page-break-inside:avoid}
+  .day-body{max-height:none!important}
+  .check-item input[type=checkbox]{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  body{background:#fff;font-size:11pt}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav{gap:0}
+  .nav a{padding:8px 10px;font-size:.72rem}
+  .hero{min-height:70vh;padding:80px 16px 60px}
+  .day-body-inner{padding-left:24px}
+  .two-col{grid-template-columns:1fr}
+  #map{height:350px}
+  section{padding:40px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Navegación principal">
+  <a href="#resumen">Resumen</a>
+  <a href="#mapa">Mapa</a>
+  <a href="#itinerario">Itinerario</a>
+  <a href="#ciudades">Ciudades</a>
+  <a href="#presupuesto">Presupuesto</a>
+  <a href="#transporte">Transporte</a>
+  <a href="#checklist">Checklist</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <p class="subtitle">Verano 2026</p>
+    <h1>España: Boda, Andalucía & Toledo</h1>
+    <p class="dates">4 — 17 julio 2026 &nbsp;·&nbsp; 14 días &nbsp;·&nbsp; París → España → París</p>
+    <div class="event-badge" aria-label="Evento destacado: boda">💒 Boda Sergio & María — 4 julio, Cartagena</div>
+    <div class="chips" aria-label="Temas del viaje">
+      <span class="chip">Boda</span>
+      <span class="chip">Cultura</span>
+      <span class="chip">Playa</span>
+      <span class="chip">Naturaleza</span>
+      <span class="chip">Ciudades históricas</span>
+    </div>
+  </div>
+</header>
+
+<!-- RESUMEN -->
+<section id="resumen">
+  <div class="container">
+    <h2 class="section-title">Resumen del viaje</h2>
+    <p class="section-sub">14 días (4–17 julio) · Cartagena → Granada → Málaga → Sevilla → Córdoba → Toledo → Madrid</p>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="icon">✈️</div>
+        <h3>Vuelo</h3>
+        <p>París → Alicante (ida)<br>Madrid → París (vuelta)</p>
+      </div>
+      <div class="summary-card">
+        <div class="icon">💒</div>
+        <h3>Boda</h3>
+        <p>Sergio & María<br>4 julio · 19:00<br>Cartagena (residencia militar)</p>
+      </div>
+      <div class="summary-card">
+        <div class="icon">🏛️</div>
+        <h3>8 ciudades</h3>
+        <p>Cartagena · La Manga · Granada · Málaga · Sevilla · Ronda · Córdoba · Toledo</p>
+      </div>
+      <div class="summary-card">
+        <div class="icon">🚆</div>
+        <h3>Transporte</h3>
+        <p>Pase nacional €60<br>Trenes regionales + buses</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="mapa" style="background:#fff">
+  <div class="container">
+    <h2 class="section-title">Mapa del viaje</h2>
+    <p class="section-sub">Explora las ciudades y atracciones del itinerario</p>
+    <div class="map-controls">
+      <button class="map-btn active" data-filter="all" aria-label="Mostrar todo">Todo</button>
+      <button class="map-btn" data-filter="ciudad" aria-label="Filtrar ciudades">Ciudades</button>
+      <button class="map-btn" data-filter="atraccion" aria-label="Filtrar atracciones">Atracciones</button>
+      <button class="map-btn" data-filter="boda" aria-label="Filtrar boda">Boda</button>
+      <button class="map-btn" data-filter="playa" aria-label="Filtrar playas">Playas</button>
+    </div>
+    <div class="filter-group">
+      <label>Ciudad:</label>
+      <select id="cityFilter" style="padding:6px 12px;border-radius:6px;border:1px solid #ddd;font-family:var(--font-body);font-size:.82rem">
+        <option value="all">Todas</option>
+      </select>
+      <button class="map-btn" id="routeBtn" aria-label="Ver ruta completa">🗺 Ver ruta completa</button>
+    </div>
+    <div id="map" role="application" aria-label="Mapa interactivo del viaje"></div>
+  </div>
+</section>
+
+<!-- ITINERARIO -->
+<section id="itinerario">
+  <div class="container">
+    <h2 class="section-title">Itinerario día a día</h2>
+    <p class="section-sub">Haz clic en cada día para ver los detalles</p>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- CIUDADES -->
+<section id="ciudades" style="background:#fff">
+  <div class="container">
+    <h2 class="section-title">Ciudades</h2>
+    <p class="section-sub">Las joyas de este viaje por España</p>
+    <div class="cities-grid" id="citiesGrid"></div>
+  </div>
+</section>
+
+<!-- PRESUPUESTO -->
+<section id="presupuesto">
+  <div class="container">
+    <h2 class="section-title">Presupuesto & Noches</h2>
+    <p class="section-sub">Distribución de noches por ciudad y estimación de costos</p>
+    <h3 style="font-family:var(--font-display);text-align:center;margin-bottom:20px">🏨 Noches por ciudad</h3>
+    <div class="nights-grid" id="nightsGrid"></div>
+    <h3 style="font-family:var(--font-display);text-align:center;margin:32px 0 20px">💰 Estimación de costos (por persona)</h3>
+    <div class="costs-card">
+      <table class="costs-table">
+        <thead><tr><th>Concepto</th><th style="text-align:right">Estimado</th></tr></thead>
+        <tbody id="costsBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPORTE -->
+<section id="transporte">
+  <div class="container">
+    <h2 class="section-title">Transporte</h2>
+    <p class="section-sub">Todo sobre el pase nacional de transporte</p>
+    <div class="transport-section">
+      <div class="transport-card">
+        <h3>🚆 Pase Nacional de Transporte <span class="price">€60</span></h3>
+        <p style="color:var(--color-text-light);font-size:.9rem;margin-bottom:16px">Abono multiviaje que cubre trenes regionales y buses interurbanos en toda España.</p>
+        <div class="two-col">
+          <div>
+            <h4 class="includes">Incluye</h4>
+            <ul>
+              <li>Trenes regionales / media distancia</li>
+              <li>Buses interurbanos</li>
+              <li>Cercanías Renfe</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="excludes">No incluye</h4>
+            <ul class="excludes-list">
+              <li>AVE / Alta velocidad</li>
+              <li>Metro urbano</li>
+              <li>Buses urbanos municipales</li>
+            </ul>
+          </div>
+        </div>
+        <ul class="advice-list">
+          <li>Reserva con antelación en trayectos populares (Sevilla-Córdoba, etc.)</li>
+          <li>Valida cada viaje antes de subir al tren o bus</li>
+          <li>Lleva siempre identificación (DNI/pasaporte) junto al pase</li>
+          <li>Consulta horarios en la app de Renfe o en estaciones</li>
+        </ul>
+        <div style="margin-top:20px;padding:16px 20px;background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1px solid #ffe082;border-left:4px solid var(--color-gold);border-radius:0 8px 8px 0;font-size:.88rem;line-height:1.6">
+          <strong style="color:#b45309">⏰ Tip importante:</strong> El pase de transporte debe comprarse aproximadamente <strong>un mes antes del viaje</strong> o durante el mismo mes del viaje, según disponibilidad. ¡No esperes al último momento!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist" style="background:#fff">
+  <div class="container">
+    <h2 class="section-title">Checklist del viaje</h2>
+    <p class="section-sub">Marca lo que ya tienes listo</p>
+    <div class="checklist" id="checklistContainer"></div>
+    <div style="text-align:center">
+      <button class="print-btn" onclick="window.print()" aria-label="Imprimir checklist">🖨 Imprimir / Guardar PDF</button>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Visor de imagen">
+  <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+  <img src="" alt="Imagen ampliada">
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>España 2026 — Itinerario de viaje · Creado con cariño para una aventura inolvidable</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const itineraryData = [
+  {
+    dayNumber:1, dateLabel:"4 julio", baseCity:"París → Alicante → Cartagena", sleepCity:"Cartagena",
+    highlights:["Vuelo por la mañana París → Alicante","Traslado a Cartagena","Boda Sergio & María — 19:00","Celebración y fiesta"],
+    attractions:["Boda Sergio & María"],
+    transport:"Vuelo + bus/coche",
+    route:{from:"Alicante",to:"Cartagena",duration:"30–40 min",mode:"Bus / coche",icon:"🚌"},
+    food:["Banquete de la boda"],
+    optional:[],
+    budgetTips:["Pase €60 cubre bus interurbano a Cartagena"],
+    coords:[37.6057,-0.9913],
+    isWedding:true
+  },
+  {
+    dayNumber:2, dateLabel:"5 julio", baseCity:"Cartagena", sleepCity:"Cartagena",
+    highlights:["Día social con los novios","Descanso post-boda","Sin turismo formal"],
+    attractions:[],
+    transport:"—",
+    route:null,
+    food:["Comida con familia / amigos"],
+    optional:["Paseo ligero por el puerto"],
+    budgetTips:["Día sin gastos turísticos"],
+    coords:[37.6057,-0.9913]
+  },
+  {
+    dayNumber:3, dateLabel:"6 julio", baseCity:"Cartagena → La Manga → Cartagena", sleepCity:"Cartagena",
+    highlights:["Día de playa en La Manga del Mar Menor","Baño en el Mar Menor y Mediterráneo","Chiringuitos y paseo marítimo"],
+    attractions:["La Manga del Mar Menor","Playas de La Manga"],
+    transport:"Bus ida y vuelta",
+    route:{from:"Cartagena",to:"La Manga",duration:"30 min",mode:"Bus",icon:"🚌"},
+    food:["Chiringuito en la playa","Caldero murciano"],
+    optional:["Deportes acuáticos en el Mar Menor"],
+    budgetTips:["Bus incluido en pase €60"],
+    coords:[37.6400,-0.7000]
+  },
+  {
+    dayNumber:4, dateLabel:"7 julio", baseCity:"Cartagena → Granada", sleepCity:"Granada",
+    highlights:["Salida temprano (≈8:00)","Traslado a Granada","Paseo por el Albaicín","Miradores al atardecer"],
+    attractions:["Albaicín","Mirador de San Nicolás","Carrera del Darro"],
+    transport:"Bus directo",
+    route:{from:"Cartagena",to:"Granada",duration:"4–5 h",mode:"Bus directo",icon:"🚌"},
+    food:["Tapas gratis con cada bebida","Bar Los Diamantes"],
+    optional:["Tapeo nocturno"],
+    budgetTips:["En Granada las tapas son gratis con la bebida"],
+    coords:[37.1773,-3.5986]
+  },
+  {
+    dayNumber:5, dateLabel:"8 julio", baseCity:"Granada", sleepCity:"Granada",
+    highlights:["Alhambra y Generalife (reserva anticipada)","Catedral de Granada","Hammam árabe","Paseo centro histórico"],
+    attractions:["Alhambra","Palacios Nazaríes","Generalife","Catedral de Granada"],
+    transport:"A pie / bus urbano",
+    route:null,
+    food:["Piononos de Santa Fe","Tapas en Plaza Nueva"],
+    optional:["Sacromonte y cuevas"],
+    budgetTips:["Reservar Alhambra con mucha antelación — se agotan"],
+    coords:[37.1760,-3.5881]
+  },
+  {
+    dayNumber:6, dateLabel:"9 julio", baseCity:"Granada → Málaga", sleepCity:"Málaga",
+    highlights:["Traslado a Málaga","Centro histórico","Alcazaba","Playa de la Malagueta"],
+    attractions:["Centro histórico Málaga","Alcazaba de Málaga","Playa de la Malagueta"],
+    transport:"Tren",
+    route:{from:"Granada",to:"Málaga",duration:"1h 25m",mode:"Tren",icon:"🚆"},
+    food:["Espetos de sardinas en la playa","Pimientos fritos"],
+    optional:["Museo Picasso"],
+    budgetTips:["Museo Picasso gratis últimas 2h del domingo"],
+    coords:[36.7213,-4.4214]
+  },
+  {
+    dayNumber:7, dateLabel:"10 julio", baseCity:"Málaga", sleepCity:"Málaga",
+    highlights:["Día libre en Málaga","Museo Picasso","Paseo marítimo","Castillo de Gibralfaro"],
+    attractions:["Museo Picasso","Paseo marítimo","Castillo de Gibralfaro"],
+    transport:"A pie",
+    route:null,
+    food:["Mercado Atarazanas","Pescaíto frito"],
+    optional:["Barrio de Soho — arte urbano"],
+    budgetTips:["Paseo marítimo y Soho son gratuitos"],
+    coords:[36.7213,-4.4214]
+  },
+  {
+    dayNumber:8, dateLabel:"11 julio", baseCity:"Málaga → Sevilla", sleepCity:"Sevilla",
+    highlights:["Traslado a Sevilla","Llegada y paseo por el centro","Barrio Santa Cruz","Río Guadalquivir"],
+    attractions:["Barrio Santa Cruz","Río Guadalquivir"],
+    transport:"Tren",
+    route:{from:"Málaga",to:"Sevilla",duration:"2 h",mode:"Tren",icon:"🚆"},
+    food:["Tapas en el centro","Salmorejo"],
+    optional:["Paseo nocturno por Triana"],
+    budgetTips:["Paseo por barrios históricos gratuito"],
+    coords:[37.3886,-5.9823]
+  },
+  {
+    dayNumber:9, dateLabel:"12 julio", baseCity:"Sevilla → Ronda / Setenil → Sevilla", sleepCity:"Sevilla",
+    highlights:["Tour pueblos blancos","Puente Nuevo de Ronda","Setenil de las Bodegas","Miradores espectaculares"],
+    attractions:["Puente Nuevo de Ronda","Setenil de las Bodegas","Casco histórico de Ronda"],
+    transport:"Excursión ida/vuelta",
+    route:{from:"Sevilla",to:"Ronda",duration:"2–2.5 h",mode:"Bus / excursión",icon:"🚌"},
+    food:["Rabo de toro en Ronda","Tapas en Setenil bajo las rocas"],
+    optional:["Plaza de toros de Ronda"],
+    budgetTips:["Vistas del Puente Nuevo gratuitas desde miradores"],
+    coords:[36.7462,-5.1612]
+  },
+  {
+    dayNumber:10, dateLabel:"13 julio", baseCity:"Sevilla", sleepCity:"Sevilla",
+    highlights:["Plaza de España","Real Alcázar","Catedral + Giralda","Barrio Santa Cruz"],
+    attractions:["Plaza de España","Real Alcázar","Catedral de Sevilla","Giralda"],
+    transport:"A pie",
+    route:null,
+    food:["Pescaíto frito en Triana","Mercado de Triana"],
+    optional:["Espectáculo flamenco","Metropol Parasol (Setas)"],
+    budgetTips:["Plaza de España es gratuita"],
+    coords:[37.3886,-5.9823]
+  },
+  {
+    dayNumber:11, dateLabel:"14 julio", baseCity:"Sevilla → Córdoba → Toledo", sleepCity:"Toledo",
+    highlights:["Mezquita-Catedral de Córdoba","Almuerzo en Córdoba","Tren a Toledo","Llegada nocturna a Toledo"],
+    attractions:["Mezquita-Catedral","Judería de Córdoba"],
+    transport:"Dos trenes",
+    route:{from:"Sevilla → Córdoba → Toledo",to:"",duration:"45m + 3h 30m",mode:"Tren + Tren",icon:"🚆"},
+    food:["Salmorejo cordobés","Flamenquín"],
+    optional:["Calleja de las Flores","Puente Romano"],
+    budgetTips:["Mezquita gratis de 8:30 a 9:30 entre semana"],
+    coords:[37.8796,-4.7796]
+  },
+  {
+    dayNumber:12, dateLabel:"15 julio", baseCity:"Toledo", sleepCity:"Toledo",
+    highlights:["Casco histórico de Toledo","Catedral Primada","Miradores del Tajo","Puente de San Martín"],
+    attractions:["Casco histórico de Toledo","Catedral Primada","Mirador del Valle","Puente de San Martín"],
+    transport:"A pie",
+    route:null,
+    food:["Mazapán de Toledo","Carcamusas"],
+    optional:["Museo del Greco","Sinagoga del Tránsito"],
+    budgetTips:["Paseo por el casco histórico y miradores gratuitos"],
+    coords:[39.8628,-4.0273]
+  },
+  {
+    dayNumber:13, dateLabel:"16 julio", baseCity:"Toledo → Madrid", sleepCity:"Madrid",
+    highlights:["Últimas vistas de Toledo","Traslado a Madrid","Tarde libre en Madrid"],
+    attractions:["Madrid centro"],
+    transport:"Tren",
+    route:{from:"Toledo",to:"Madrid",duration:"35 min",mode:"Tren",icon:"🚆"},
+    food:["Bocadillo de calamares en Madrid"],
+    optional:["Paseo por el Retiro","Gran Vía"],
+    budgetTips:["Tren Toledo-Madrid muy frecuente y barato"],
+    coords:[40.4168,-3.7038]
+  },
+  {
+    dayNumber:14, dateLabel:"17 julio", baseCity:"Madrid → París", sleepCity:"—",
+    highlights:["Vuelo de regreso a París"],
+    attractions:[],
+    transport:"Vuelo internacional",
+    route:{from:"Madrid",to:"París",duration:"2h 15m",mode:"Vuelo",icon:"✈️"},
+    food:[],
+    optional:[],
+    budgetTips:["Llegar al aeropuerto con 2h de antelación"],
+    coords:[40.4722,-3.5609]
+  }
+];
+
+const mapMarkers = [
+  {name:"Alicante (llegada)",lat:38.3452,lng:-0.4810,type:"ciudad",city:"Alicante"},
+  {name:"Cartagena",lat:37.6057,lng:-0.9913,type:"ciudad",city:"Cartagena"},
+  {name:"Boda Sergio & María",lat:37.6020,lng:-0.9880,type:"boda",city:"Cartagena"},
+  {name:"La Manga del Mar Menor",lat:37.6400,lng:-0.7000,type:"playa",city:"La Manga"},
+  {name:"Granada",lat:37.1773,lng:-3.5986,type:"ciudad",city:"Granada"},
+  {name:"Alhambra",lat:37.1760,lng:-3.5881,type:"atraccion",city:"Granada"},
+  {name:"Mirador de San Nicolás",lat:37.1813,lng:-3.5927,type:"atraccion",city:"Granada"},
+  {name:"Catedral de Granada",lat:37.1762,lng:-3.5986,type:"atraccion",city:"Granada"},
+  {name:"Málaga",lat:36.7213,lng:-4.4214,type:"ciudad",city:"Málaga"},
+  {name:"Alcazaba de Málaga",lat:36.7214,lng:-4.4160,type:"atraccion",city:"Málaga"},
+  {name:"Museo Picasso",lat:36.7218,lng:-4.4189,type:"atraccion",city:"Málaga"},
+  {name:"Castillo de Gibralfaro",lat:36.7240,lng:-4.4110,type:"atraccion",city:"Málaga"},
+  {name:"Sevilla",lat:37.3886,lng:-5.9823,type:"ciudad",city:"Sevilla"},
+  {name:"Real Alcázar",lat:37.3833,lng:-5.9900,type:"atraccion",city:"Sevilla"},
+  {name:"Plaza de España",lat:37.3772,lng:-5.9869,type:"atraccion",city:"Sevilla"},
+  {name:"Catedral de Sevilla",lat:37.3861,lng:-5.9926,type:"atraccion",city:"Sevilla"},
+  {name:"Ronda",lat:36.7462,lng:-5.1612,type:"ciudad",city:"Ronda"},
+  {name:"Puente Nuevo Ronda",lat:36.7410,lng:-5.1663,type:"atraccion",city:"Ronda"},
+  {name:"Setenil de las Bodegas",lat:36.8627,lng:-5.1790,type:"atraccion",city:"Setenil"},
+  {name:"Córdoba",lat:37.8796,lng:-4.7796,type:"ciudad",city:"Córdoba"},
+  {name:"Mezquita-Catedral",lat:37.8789,lng:-4.7794,type:"atraccion",city:"Córdoba"},
+  {name:"Toledo",lat:39.8628,lng:-4.0273,type:"ciudad",city:"Toledo"},
+  {name:"Catedral Primada Toledo",lat:39.8567,lng:-4.0234,type:"atraccion",city:"Toledo"},
+  {name:"Mirador del Valle",lat:39.8560,lng:-4.0370,type:"atraccion",city:"Toledo"},
+  {name:"Madrid",lat:40.4168,lng:-3.7038,type:"ciudad",city:"Madrid"}
+];
+
+const citiesData = [
+  {name:"Cartagena",img:"https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?w=600&q=80",desc:"Puerto histórico, Teatro Romano y sede de la boda. 3 noches."},
+  {name:"La Manga",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",desc:"Playas entre el Mar Menor y el Mediterráneo."},
+  {name:"Granada",img:"https://images.unsplash.com/photo-1526142684086-7ebd69df27a5?w=600&q=80",desc:"La Alhambra, el Albaicín y tapas gratuitas. 2 noches."},
+  {name:"Málaga",img:"https://images.unsplash.com/photo-1563784462041-5f97ac9523dd?w=600&q=80",desc:"Picasso, Alcazaba, espetos y paseo marítimo. 2 noches."},
+  {name:"Sevilla",img:"https://images.unsplash.com/photo-1515443961218-a51367888e4b?w=600&q=80",desc:"Alcázar, flamenco, Giralda y barrios con encanto. 3 noches."},
+  {name:"Ronda",img:"https://images.unsplash.com/photo-1562883676-8c7feb83f09b?w=600&q=80",desc:"El impresionante Puente Nuevo sobre el Tajo."},
+  {name:"Córdoba",img:"https://images.unsplash.com/photo-1561632669-7f55f7975606?w=600&q=80",desc:"Mezquita-Catedral, Judería y patios floridos. Parada en ruta."},
+  {name:"Toledo",img:"https://images.unsplash.com/photo-1559666126-84f389727b9a?w=600&q=80",desc:"Ciudad de las tres culturas y catedral primada. 2 noches."},
+  {name:"Madrid",img:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80",desc:"Última parada antes del vuelo de regreso. 1 noche."}
+];
+
+const checklistData = {
+  "Documentos":[
+    "Pasaporte / DNI vigente",
+    "Tarjetas de embarque impresas o en móvil",
+    "Confirmación de alojamientos",
+    "Invitación de boda impresa",
+    "Seguro de viaje",
+    "Pase de transporte €60"
+  ],
+  "Ropa":[
+    "Traje / vestido para la boda",
+    "Ropa ligera de verano",
+    "Bañador y toalla",
+    "Calzado cómodo para caminar",
+    "Sandalias",
+    "Chaqueta ligera (noches de Toledo)"
+  ],
+  "Tecnología":[
+    "Cargador de móvil + batería externa",
+    "Adaptador enchufe (si aplica)",
+    "Cámara de fotos",
+    "Auriculares"
+  ],
+  "Esenciales":[
+    "Protector solar SPF 50",
+    "Botella de agua reutilizable",
+    "Gafas de sol y sombrero",
+    "Medicamentos personales",
+    "Candado para maleta",
+    "Reserva Alhambra confirmada"
+  ]
+};
+
+// ============================================================
+// MAP
+// ============================================================
+const map = L.map('map').setView([38.0,-3.5],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; OpenStreetMap contributors',
+  maxZoom:18
+}).addTo(map);
+
+const markerColors = {ciudad:'#2c6fbb',atraccion:'#27ae60',boda:'#c0392b',playa:'#e67e22'};
+
+function createIcon(type){
+  const color = markerColors[type]||'#666';
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)"></div>`,
+    iconSize:[14,14],
+    iconAnchor:[7,7]
+  });
+}
+
+let allMarkerLayers = [];
+mapMarkers.forEach(m=>{
+  const marker = L.marker([m.lat,m.lng],{icon:createIcon(m.type)})
+    .bindPopup(`<strong>${m.name}</strong><br><small style="text-transform:capitalize">${m.type} · ${m.city}</small>`)
+    .addTo(map);
+  marker._data = m;
+  allMarkerLayers.push(marker);
+});
+
+// City filter dropdown
+const cities = [...new Set(mapMarkers.map(m=>m.city))].sort();
+const citySelect = document.getElementById('cityFilter');
+cities.forEach(c=>{
+  const opt = document.createElement('option');
+  opt.value = c; opt.textContent = c;
+  citySelect.appendChild(opt);
+});
+
+function filterMarkers(){
+  const typeFilter = document.querySelector('.map-btn.active')?.dataset.filter || 'all';
+  const cityFilter = citySelect.value;
+  allMarkerLayers.forEach(marker=>{
+    const d = marker._data;
+    const showType = typeFilter==='all' || d.type===typeFilter;
+    const showCity = cityFilter==='all' || d.city===cityFilter;
+    if(showType && showCity) marker.addTo(map);
+    else map.removeLayer(marker);
+  });
+}
+
+document.querySelectorAll('.map-btn[data-filter]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.map-btn[data-filter]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    filterMarkers();
+  });
+});
+citySelect.addEventListener('change',filterMarkers);
+
+// Route
+const routeCoords = itineraryData.map(d=>d.coords);
+let routeLine = null;
+document.getElementById('routeBtn').addEventListener('click',()=>{
+  if(routeLine){map.removeLayer(routeLine);routeLine=null;return;}
+  routeLine = L.polyline(routeCoords,{color:markerColors.boda,weight:3,opacity:.7,dashArray:'8 6'}).addTo(map);
+  map.fitBounds(routeLine.getBounds(),{padding:[30,30]});
+});
+
+function centerMapOnDay(dayIdx){
+  const d = itineraryData[dayIdx];
+  if(d && d.coords) map.setView(d.coords,13,{animate:true});
+}
+
+// ============================================================
+// TIMELINE
+// ============================================================
+const timelineEl = document.getElementById('timeline');
+itineraryData.forEach((day,i)=>{
+  const card = document.createElement('div');
+  card.className = 'day-card' + (day.isWedding?' wedding':'');
+  // Build route tag HTML (Rome2Rio style)
+  let routeHtml = '';
+  if(day.route){
+    const r = day.route;
+    const label = r.to ? `${r.from} <span class="route-arrow">→</span> ${r.to}` : r.from;
+    routeHtml = `<div class="route-tag">
+      <span class="route-icon">${r.icon}</span>
+      <span>${label}</span>
+      <span class="route-duration">${r.duration}</span>
+      <span class="route-mode">(${r.mode})</span>
+    </div>`;
+  }
+  const sleepHtml = day.sleepCity && day.sleepCity !== '—'
+    ? `<div class="sleep-tag">🛏 Dormir: ${day.sleepCity}</div>` : '';
+  card.innerHTML = `
+    <div class="day-header" role="button" tabindex="0" aria-expanded="false" aria-controls="day-body-${i}">
+      <div class="day-num">${day.isWedding?'💒':day.dayNumber}</div>
+      <div class="day-info">
+        <h3>Día ${day.dayNumber} — ${day.dateLabel}</h3>
+        <span class="day-meta">${day.baseCity} · ${day.highlights[0]}</span>
+      </div>
+      <span class="day-chevron" aria-hidden="true">▼</span>
+    </div>
+    <div class="day-body" id="day-body-${i}">
+      <div class="day-body-inner">
+        <h4>Highlights</h4>
+        <ul>${day.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>
+        ${day.food.length?`<h4>Comida</h4><ul>${day.food.map(f=>`<li>${f}</li>`).join('')}</ul>`:''}
+        ${day.optional.length?`<h4>Opcional</h4><ul>${day.optional.map(o=>`<li>${o}</li>`).join('')}</ul>`:''}
+        ${routeHtml}
+        ${sleepHtml}
+        ${day.budgetTips.length?`<div class="tip">${day.budgetTips[0]}</div>`:''}
+        <button class="map-link" data-day="${i}">📍 Ver en el mapa</button>
+      </div>
+    </div>`;
+  timelineEl.appendChild(card);
+
+  const header = card.querySelector('.day-header');
+  header.addEventListener('click',()=>toggleDay(card,i));
+  header.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleDay(card,i);}});
+});
+
+function toggleDay(card,i){
+  const open = card.classList.toggle('open');
+  const body = card.querySelector('.day-body');
+  const header = card.querySelector('.day-header');
+  header.setAttribute('aria-expanded', open);
+  if(open){
+    body.style.maxHeight = body.scrollHeight + 'px';
+  } else {
+    body.style.maxHeight = '0';
+  }
+}
+
+document.querySelectorAll('.map-link').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    const dayIdx = parseInt(e.target.dataset.day);
+    centerMapOnDay(dayIdx);
+    document.getElementById('mapa').scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// ============================================================
+// CITIES GALLERY
+// ============================================================
+const citiesGrid = document.getElementById('citiesGrid');
+citiesData.forEach(city=>{
+  const card = document.createElement('div');
+  card.className = 'city-card';
+  card.innerHTML = `
+    <img src="${city.img}" alt="${city.name}, España" loading="lazy">
+    <div class="city-info">
+      <h3>${city.name}</h3>
+      <p>${city.desc}</p>
+    </div>`;
+  citiesGrid.appendChild(card);
+});
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+document.querySelectorAll('.city-card img').forEach(img=>{
+  img.addEventListener('click',()=>{
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('open');
+  });
+});
+lightbox.querySelector('.lightbox-close').addEventListener('click',()=>lightbox.classList.remove('open'));
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.classList.remove('open');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lightbox.classList.remove('open');});
+
+// ============================================================
+// CHECKLIST
+// ============================================================
+const checklistContainer = document.getElementById('checklistContainer');
+Object.entries(checklistData).forEach(([group,items])=>{
+  const div = document.createElement('div');
+  div.className = 'checklist-group';
+  div.innerHTML = `<h3>${group}</h3>` +
+    items.map((item,i)=>`
+      <label class="check-item">
+        <input type="checkbox" aria-label="${item}">
+        <span>${item}</span>
+      </label>`).join('');
+  checklistContainer.appendChild(div);
+});
+
+// ============================================================
+// NIGHTS & COSTS
+// ============================================================
+const nightsData = [
+  {city:"Cartagena",nights:3},
+  {city:"Granada",nights:2},
+  {city:"Málaga",nights:2},
+  {city:"Sevilla",nights:3},
+  {city:"Toledo",nights:2},
+  {city:"Madrid",nights:1}
+];
+const nightsGrid = document.getElementById('nightsGrid');
+nightsData.forEach(n=>{
+  const div = document.createElement('div');
+  div.className = 'night-chip';
+  div.innerHTML = `<div class="night-count">${n.nights}</div><div class="night-city">${n.city}</div>`;
+  nightsGrid.appendChild(div);
+});
+
+const costsData = [
+  {concept:"Alojamiento (13 noches)",amount:"~€520"},
+  {concept:"Transporte interno (pase + extras)",amount:"~€120"},
+  {concept:"Comida (14 días)",amount:"~€350"},
+  {concept:"Actividades y entradas",amount:"~€100"},
+  {concept:"Extras (souvenirs, varios)",amount:"~€60"},
+];
+const costsBody = document.getElementById('costsBody');
+costsData.forEach(c=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${c.concept}</td><td>${c.amount}</td>`;
+  costsBody.appendChild(tr);
+});
+// Total sin vuelos
+let trTotal = document.createElement('tr');
+trTotal.className = 'total-row';
+trTotal.innerHTML = `<td>Total estimado (sin vuelos)</td><td>~€1.150</td>`;
+costsBody.appendChild(trTotal);
+// Total con vuelos
+let trTotal2 = document.createElement('tr');
+trTotal2.className = 'total-row-alt';
+trTotal2.innerHTML = `<td>Total estimado (con vuelos ~€150–250)</td><td>~€1.300–1.400</td>`;
+costsBody.appendChild(trTotal2);
+
+// ============================================================
+// NAV active state
+// ============================================================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      const link = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+      if(link) link.classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>

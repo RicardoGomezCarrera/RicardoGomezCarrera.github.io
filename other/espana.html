@@ -194,6 +194,7 @@ section{padding:60px 20px}
   <a href="#itinerario">Itinerario</a>
   <a href="#ciudades">Ciudades</a>
   <a href="#presupuesto">Presupuesto</a>
+  <a href="#reservaciones">Reservaciones</a>
   <a href="#transporte">Transporte</a>
   <a href="#checklist">Checklist</a>
 </nav>
@@ -300,6 +301,15 @@ section{padding:60px 20px}
         <tbody id="costsBody"></tbody>
       </table>
     </div>
+  </div>
+</section>
+
+<!-- RESERVACIONES -->
+<section id="reservaciones" style="background:#fff">
+  <div class="container">
+    <h2 class="section-title">Reservaciones pendientes</h2>
+    <p class="section-sub">Seguimiento de boletos, hospedajes y entradas del viaje</p>
+    <div class="checklist" id="reservacionesContainer"></div>
   </div>
 </section>
 
@@ -790,6 +800,62 @@ Object.entries(checklistData).forEach(([group,items])=>{
         <span>${item}</span>
       </label>`).join('');
   checklistContainer.appendChild(div);
+});
+
+// ============================================================
+// RESERVACIONES
+// ============================================================
+const reservacionesData = {
+  "Vuelos de ida":[
+    {label:"Boletos de ida — Sofía",checked:false},
+    {label:"Boletos de ida — Fernanda",checked:false},
+    {label:"Boletos de ida — Mariana",checked:true},
+    {label:"Boletos de ida — Ricardo",checked:true}
+  ],
+  "Vuelos de regreso":[
+    {label:"Boletos de regreso — Sofía",checked:false},
+    {label:"Boletos de regreso — Fernanda",checked:false},
+    {label:"Boletos de regreso — Mariana",checked:false},
+    {label:"Boletos de regreso — Ricardo",checked:false}
+  ],
+  "Hospedajes":[
+    {label:"Cartagena — 3 noches",checked:false},
+    {label:"Granada — 2 noches",checked:false},
+    {label:"Málaga — 2 noches",checked:false},
+    {label:"Sevilla — 3 noches",checked:false},
+    {label:"Toledo — 2 noches",checked:false},
+    {label:"Madrid — 1 noche",checked:false}
+  ],
+  "Entradas y pases":[
+    {label:"Reservación Alhambra — Granada",checked:false},
+    {label:"Pase mensual de transporte nacional",checked:false}
+  ]
+};
+
+const reservacionesContainer = document.getElementById('reservacionesContainer');
+const savedReservaciones = JSON.parse(localStorage.getItem('espana2026_reservaciones')||'{}');
+
+Object.entries(reservacionesData).forEach(([group,items])=>{
+  const div = document.createElement('div');
+  div.className = 'checklist-group';
+  div.innerHTML = `<h3>${group}</h3>` +
+    items.map((item,i)=>{
+      const key = `${group}_${i}`;
+      const isChecked = savedReservaciones.hasOwnProperty(key) ? savedReservaciones[key] : item.checked;
+      return `<label class="check-item">
+        <input type="checkbox" data-res-key="${key}" ${isChecked?'checked':''} aria-label="${item.label}">
+        <span>${item.label}</span>
+      </label>`;
+    }).join('');
+  reservacionesContainer.appendChild(div);
+});
+
+reservacionesContainer.addEventListener('change',e=>{
+  if(e.target.matches('input[data-res-key]')){
+    const stored = JSON.parse(localStorage.getItem('espana2026_reservaciones')||'{}');
+    stored[e.target.dataset.resKey] = e.target.checked;
+    localStorage.setItem('espana2026_reservaciones',JSON.stringify(stored));
+  }
 });
 
 // ============================================================

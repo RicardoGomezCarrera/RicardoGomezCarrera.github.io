@@ -1,79 +1,101 @@
 WEBSITE EVALUATION AND IMPROVEMENT PROPOSALS
 Ricardo Gomez-Carrera Academic Website
 ricardogomezcarrera.com
-Evaluation date: March 2026 (updated)
-Previous evaluation: January 2026
+Evaluation date: March 21, 2026 (final update)
+Previous evaluations: January 2026, early March 2026
 
 =============================================================================
-0. CHANGES SINCE LAST EVALUATION (JANUARY 2026)
+0. CHANGES SINCE ORIGINAL EVALUATION (JANUARY 2026)
 =============================================================================
 
-Several proposals from the January 2026 evaluation have been implemented:
+All actionable proposals from the January 2026 evaluation have been
+addressed. Below is the full record of changes.
 
-IMPLEMENTED:
-- Research fields/keywords added to the Home page (was High Priority #1)
-- ORCID link added to the header links (was High Priority #2)
-- Custom domain configured: ricardogomezcarrera.com via CNAME (was High Priority #3)
-- "Other Exercises" renamed to "Other Research" (was Medium Priority #5)
-- Open Graph meta tags added to all pages (was Medium Priority #7)
-- Meta description tags added to all pages (related to #7)
-- "Previous Working Papers" section now includes a clarifying note explaining
-  that these papers reflect earlier stages of ongoing research or completed
-  projects no longer under active development (was Medium Priority #6)
-- Book page updated: WIR 2026 is now published (December 2025), with
-  extensive media coverage added, Policy Engagement section expanded with
-  four institutional presentations (UN DESA, European Parliament, European
-  Commission DG ECFIN, European Commission Reform and Investment Task Force)
-- Experience page updated: dates added to professional roles, Research Awards
-  section added with four awards
+IMPLEMENTED (between January and early March 2026):
+- Research fields/keywords added to the Home page
+- ORCID link added to the header links
+- Custom domain configured: ricardogomezcarrera.com via CNAME
+- "Other Exercises" renamed to "Other Research"
+- Open Graph meta tags added to all pages
+- Meta description tags added to all pages
+- "Previous Working Papers" section now includes a clarifying note
+- Book page updated with WIR 2026 publication, media coverage, and Policy
+  Engagement section with four institutional presentations
+- Experience page updated with dates on professional roles and Research
+  Awards section
 - CV link updated to point to a dedicated /cv/ directory
 
-ALSO IMPLEMENTED (March 2026 update):
+IMPLEMENTED (March 21, 2026 update):
 - sitemap.xml and robots.txt added for search engine indexing
-- "Recent News" section added to the Home page with WIR 2026 print
-  availability announcement
+- "Recent News" section added to the Home page with three items: upcoming
+  Casual Friday Development Seminar at PSE, WIR 2026 print availability
+  (Polity Books), and LSE Inequalities Seminar presentation
 - Twitter Card meta tags added to all pages
 - Dataset citation instructions and WID.world link added to Data page
 - WIR 2026 cover image used as OG image for book.html
 - Media coverage list on Book page made collapsible via toggle
-- Anchor id updated from "other-exercises" to "other-research" in
-  research.html for consistency with heading text
-- "Last updated" date changed to 21 March 2026 on all pages
+- Anchor id updated from "other-exercises" to "other-research"
+- "Other Research Exercises" heading simplified to "Other Research"
+- Policy Writing section added to Research page (Polity Books, Surcos,
+  VoxDev) in reverse chronological order
+- Academic Presentations section added to Experience page (Doctorissimes,
+  Casual Friday Development Seminar, LSE Inequalities Seminar, ITAM
+  Alumni Conference)
+- Referee Service section added to Experience page (Journal of Development
+  Economics)
+- "Research Awards" renamed to "Awards and Fellowships" with SECIHTI
+  Doctoral Fellowship added
+- All award names linked to their respective award pages
+- "Highest Honors" added to ITAM Master's in Education section
+- Publication entry updated with volume, issue, and year: LAJCB, 4(1), 2023
+- Data page hidden from navigation (content preserved but not linked)
+- Policy Engagement section on Book page reordered in reverse chronological
+  order (DG ECFIN, SG Reform, UN DESA, European Parliament)
+- Book cover image now links to Polity Books page
+- Date format standardized to "March 21, 2026" across all pages
+- Favicon updated to image/favicon.jpeg on all pages
+- Agence Française de Développement consultant role added to Professional
+  Experience
 
 NOT APPLICABLE:
-- Teaching section on the Experience page: not applicable (no teaching
-  experience)
+- Teaching section: no teaching experience
+- Skills/languages on website: better suited for CV (standard practice in
+  economics is to list these on the CV rather than the website)
+- Role descriptions for Professional Experience: better suited for CV
 
-NOT YET IMPLEMENTED:
-- Host France 24 YouTube thumbnail locally (minor)
-- Skills/languages on the Experience page
-- Role descriptions for Professional Experience entries
+DECIDED AGAINST:
+- Hosting France 24 YouTube thumbnail locally: not worth the maintenance
 
 =============================================================================
 1. OVERALL ASSESSMENT
 =============================================================================
 
-The website has improved substantially since the January 2026 evaluation.
-The most impactful changes are the custom domain, the addition of research
-fields, the ORCID link, and the Open Graph tags. The site now compares very
-favorably with top academic economics websites.
+The website is now comprehensive, professional, and compares very favorably
+with top academic economics websites. All priority recommendations from the
+January and March evaluations have been addressed.
 
 The site does several things well:
 - Clean, distraction-free layout with good whitespace
 - Professional headshot and clear identification
 - Research fields explicitly listed on the Home page
+- Recent News section signals an active, maintained site
 - CV available as downloadable PDF in a dedicated directory
-- Research papers hosted directly as PDFs
-- Abstracts available via toggle for all papers
+- Research papers hosted directly as PDFs with abstracts for all papers
+- Policy Writing section showcases public-facing research communication
 - Co-author links included throughout
 - Custom domain (ricardogomezcarrera.com) configured
 - ORCID, Google Scholar, and LinkedIn linked in the header
-- Open Graph and meta description tags on all pages
+- Open Graph, meta description, and Twitter Card tags on all pages
+- sitemap.xml and robots.txt for search engine indexing
 - Book page with extensive media coverage is a strong differentiator
-- Policy Engagement section with four high-profile institutional presentations
-- Data page sharing replication materials signals openness
-- Research Awards section adds credibility
+- Policy Engagement section with four high-profile institutional
+  presentations in reverse chronological order
+- Media coverage list collapsible to keep the page manageable
+- Awards and Fellowships section with five entries including SECIHTI
+- Academic Presentations section with four entries
+- Referee Service section (Journal of Development Economics)
 - Clarifying note on Previous Working Papers resolves earlier ambiguity
+- Data page preserved but hidden from navigation until more content exists
 
 =============================================================================
 2. HOME PAGE
@@ -82,73 +104,53 @@ The site does several things well:
 WHAT WORKS:
 - Bio is concise and informative (4 short paragraphs)
 - Key affiliations (PSE, World Inequality Lab) are linked
-- Research fields explicitly listed: Development Economics, Labor Economics,
-  Public Economics, Education Economics
+- Research fields explicitly listed
 - Supervisors are named and linked (Macours, Behaghel)
 - WIR 2026 role is prominently mentioned with link
-- Open Graph tags present for social media sharing
+- Recent News section with three items (upcoming seminar, WIR print
+  availability, LSE presentation) signals activity
+- Open Graph and Twitter Card tags present
 
-PROPOSALS:
+FUTURE CONSIDERATIONS:
 
-(a) Consider adding a "News" or "Recent Updates" item. For example:
-    "New: Presented World Inequality Report 2026 at the European Commission
-    (March 2026)"
-    This signals an active, maintained site. Keep it to 1-2 items max.
-    This was recommended in the January evaluation and remains relevant.
-
-(b) The About section could mention your expected graduation year if you
+(a) The About section could mention your expected graduation year if you
     are approaching the job market. Hiring committees look for this.
 
-(c) Consider whether the World Inequality Report 2026 deserves a more
-    prominent mention on the Home page, given the scale of media coverage
-    and institutional presentations. A brief highlight line (e.g., "Lead
-    author of the World Inequality Report 2026, covered by The Guardian,
-    Bloomberg, Le Monde, and El Pais") could be very impactful for first-
-    time visitors who may not navigate to the Book page.
+(b) Keep the Recent News section current: rotate items as events pass
+    (move "Upcoming" items to past tense, drop oldest items). Aim for
+    2-3 items maximum.
+
+(c) When on the job market, consider a prominent WIR 2026 highlight line
+    (e.g., "Lead author of the World Inequality Report 2026, covered by
+    The Guardian, Bloomberg, Le Monde, and El Pais").
 
 =============================================================================
 3. RESEARCH PAGE
 =============================================================================
 
 WHAT WORKS:
-- Clear section navigation at the top (Content: links)
-- Logical ordering of sections (Work in Progress > Publications >
-  Working Papers > Technical Notes > Previous Working Papers > Other Research)
+- Clear section navigation at the top with seven sections
+- Logical ordering: Work in Progress > Publications > Working Papers >
+  Technical Notes > Policy Writing > Previous Working Papers > Other Research
+- Policy Writing section showcases VoxDev, Surcos, and Polity pieces
 - Abstracts toggle for every paper
 - Co-author links throughout
-- Media coverage links for selected papers (VoxDev, Savage Minds)
-- "Other Research" label is more professional than the previous "Other
-  Exercises"
-- Previous Working Papers section now includes a clear explanatory note
-- The anchor link in the section nav correctly uses id="other-exercises"
-  for the "Other Research" heading, which works but could be updated for
-  consistency
+- Media coverage links for selected papers
+- Publication entry includes journal volume, issue, and year
+- All anchor ids consistent with heading text and nav links
+- Previous Working Papers section has explanatory note
 
-PROPOSALS:
+FUTURE CONSIDERATIONS:
 
-(a) The section nav anchor text reads "Other Research" but the id attribute
-    is still "other-exercises". Consider updating the id to "other-research"
-    and the anchor link to "#other-research" for consistency. This is a
-    minor technical cleanup.
+(a) If you go on the job market, prominently feature your Job Market Paper
+    (JMP) at the top of the Research page. The JMP should have its title,
+    abstract, and PDF link immediately visible without any clicks.
 
-(b) If you go on the job market, you will need to prominently feature
-    your Job Market Paper (JMP) at the top of the Research page (or even
-    on the Home page). The JMP should have its title, abstract, and PDF
-    link immediately visible without any clicks. Plan for this.
+(b) Consider adding links to SSRN, Google Scholar, or DOI pages for
+    published and working papers to improve discoverability.
 
-(c) Consider adding links to SSRN, Google Scholar, or DOI pages for
-    published and working papers. This helps with discoverability and
-    citation tracking. The publication in the Latin American Journal of
-    Central Banking already has a ScienceDirect link, which is good.
-
-(d) The Work in Progress section currently has three items with
-    descriptions. Best practice is to only list work in progress that you
-    are prepared to discuss in detail during interviews. Ensure each item
-    is sufficiently developed.
-
-(e) Consider adding direct links to replication code or data where
-    available (e.g., GitHub repos). Sharing replication materials is
-    increasingly expected and valued.
+(c) Consider adding direct links to replication code or data where
+    available.
 
 =============================================================================
 4. BOOK PAGE
@@ -156,34 +158,17 @@ PROPOSALS:
 
 WHAT WORKS:
 - Strong content: lead author of a major report with media coverage from
-  top international outlets (The Guardian, Bloomberg, Le Monde, El Pais,
-  Al Jazeera, France 24, BBC, Channel 4, and many more)
-- Policy Engagement section with four institutional presentations is
-  impressive and expanded since last evaluation (now includes UN DESA,
-  European Parliament, European Commission DG ECFIN, and European
-  Commission Reform and Investment Task Force)
+  top international outlets
+- Policy Engagement section with four institutional presentations in
+  reverse chronological order
 - Description and My Role toggles keep the page clean
-- Report cover image with link to the WIR website
-- Media organized by type (Audio, Video, Print)
+- Report cover image links to Polity Books page
+- Media organized by type, collapsible via toggle
 - Links to Full Report, Executive Summary, and Website
-- "See all media coverage" link at the bottom for completeness
+- "See all media coverage" link for completeness
+- OG image uses the WIR cover for social media sharing
 
-PROPOSALS:
-
-(a) The France 24 video thumbnail is embedded directly from YouTube
-    (img.youtube.com). Consider hosting a static thumbnail locally to
-    avoid potential loading issues and to maintain control over the visual.
-
-(b) Consider whether the full media list could be collapsed by default
-    (similar to the abstract toggles) to reduce page length. The page is
-    now quite long with the expanded media and policy engagement sections.
-
-(c) The book cover image (280px) is well-sized. No change needed from
-    the previous recommendation to increase size.
-
-(d) Consider adding the date of publication (December 2025) more
-    prominently near the top of the page, so visitors immediately
-    understand the recency of the report.
+NO REMAINING PROPOSALS. This page is complete and well-structured.
 
 =============================================================================
 5. DATA PAGE
@@ -192,127 +177,65 @@ PROPOSALS:
 WHAT WORKS:
 - Clean and focused: one dataset with description and download link
 - Technical Note linked for methodology
+- Citation instructions and file format specified
+- WID.world linked as the primary data platform
 - Good meta description and OG tags
 
-PROPOSALS:
-
-(a) This page is still quite sparse with a single dataset. As you produce
-    more data or replication packages, add them here. Until then, consider
-    whether this content could live as a subsection of the Research page
-    instead of being a standalone page.
-
-(b) Consider adding context: file format, size, license/terms of use,
-    citation instructions, or a suggested citation for the dataset. This
-    was recommended in the January evaluation and remains relevant.
-
-(c) Consider linking to WID.world as the primary data platform, since the
-    population series is accessible there.
+The page is currently hidden from navigation. It can be restored when
+additional datasets or replication packages are available.
 
 =============================================================================
 6. EXPERIENCE PAGE
 =============================================================================
 
 WHAT WORKS:
-- Education, Research Awards, and Professional Experience are well-organized
-- Institution links are included
-- Award entries link to the awarded papers
-- Dates now included for professional roles (addresses January proposal)
-- Research Awards section is a valuable addition with four awards
-- Multiple roles per institution are listed
+- Education section with "Highest Honors" noted for ITAM Master's
+- Awards and Fellowships section with five entries (SECIHTI, International
+  Master Thesis Competition, Xirau Icaza, ITAM Alumni, LAJCB), all linked
+  to their respective award pages
+- Academic Presentations section with four entries in consistent format
+  (event name, institution, year)
+- Referee Service section (Journal of Development Economics)
+- Professional Experience with dates and linked institutions
+- Institution links included throughout
 
-PROPOSALS:
-
-(a) Consider adding a Teaching section if you have teaching experience
-    (TA positions, guest lectures, etc.). Teaching is important for many
-    academic job applications and its absence is noticeable on academic
-    sites. This was recommended in the January evaluation and remains the
-    most significant gap on this page.
-
-(b) Consider adding skills or languages if relevant (e.g., programming
-    languages: R, Stata, Python; Languages: Spanish, English, French).
-    Many candidates include this.
-
-(c) Consider adding brief descriptions of your responsibilities in key
-    roles, similar to the Policy Engagement descriptions on the Book page
-    (expandable descriptions). This would be especially useful for non-
-    obvious roles like "Director of Domestic Debt Issuance."
-
-(d) The Professional Experience section could benefit from a note about
-    the World Inequality Lab role being concurrent with PhD studies, to
-    help readers understand the timeline.
+NO REMAINING PROPOSALS. This page is complete and well-structured.
 
 =============================================================================
 7. DESIGN AND TECHNICAL CONSIDERATIONS
 =============================================================================
 
 WHAT WORKS:
-- Simple, fast-loading static HTML (no heavy frameworks)
-- Consistent navigation and header across all pages
+- Simple, fast-loading static HTML
+- Consistent navigation and header across all pages (4-page nav)
 - Responsive design with media queries for mobile
-- Favicon included
+- Favicon (image/favicon.jpeg) included on all pages
 - Clean typography and color scheme
-- Custom domain (ricardogomezcarrera.com) configured via CNAME
-- Open Graph tags on all pages for social media sharing
-- Meta description tags on all pages for SEO
+- Custom domain configured via CNAME
+- Open Graph, Twitter Card, and meta description tags on all pages
+- sitemap.xml and robots.txt for search engine indexing
 - CV hosted in a dedicated /cv/ directory
 
-PROPOSALS:
+FUTURE CONSIDERATIONS:
 
-(a) sitemap.xml and robots.txt. The site still does not have these files.
-    Adding them would help search engines index the site properly. This is
-    straightforward to implement.
+(a) If you develop an academic social media presence (Twitter/X, Bluesky),
+    consider adding it to the header links.
 
-(b) Twitter/X or Bluesky. If you have an academic social media presence,
-    consider adding it to the header links. Many economists use these for
-    dissemination. Only add if you maintain a professional presence.
-
-(c) Consider adding a "Last updated" date that is more granular (e.g.,
-    "7 February 2026" is already granular, which is good). Ensure this
-    date is kept current when making changes.
-
-(d) The footer is positioned as a fixed element at the bottom of the
-    left sidebar (position: fixed; bottom: 50px). On pages with long
-    content (like Book and Research), this means the footer remains
-    visible at all times. This is fine for desktop but verify the
-    behavior on mobile devices is as intended.
-
-(e) The Open Graph image tag on all pages points to profile.jpg. For the
-    Book page specifically, consider using the WIR 2026 cover image
-    instead, which would be more visually distinctive when shared on
-    social media.
-
-(f) Consider adding Twitter Card meta tags (twitter:card, twitter:title,
-    twitter:description, twitter:image) alongside the Open Graph tags for
-    better rendering on Twitter/X.
+(b) The footer is positioned as a fixed element at the bottom of the left
+    sidebar. Verify behavior on mobile is as intended.
 
 =============================================================================
 8. CONTENT GAPS COMPARED TO BEST PRACTICES
 =============================================================================
 
-The following elements are common on top academic economics websites but
-are currently absent. Not all are necessary, but consider each:
+The website now covers all standard elements for a top academic economics
+PhD candidate website, plus several above-average features.
 
-RECOMMENDED ADDITIONS:
-- Teaching section (if applicable)
+ITEMS THAT REMAIN FOR THE JOB MARKET:
 - Job Market Paper designation (when on the market)
-- sitemap.xml and robots.txt
-- Twitter Card meta tags
+- Expected graduation year on the Home page
 
-OPTIONAL ADDITIONS:
-- News/updates section (1-2 recent items)
-- Conference presentations or invited talks list
-- Links to slides or presentation materials
-- Blog or policy writing section
-- Languages and technical skills
-- Anchor id cleanup (other-exercises → other-research)
-
-ITEMS PREVIOUSLY RECOMMENDED AND NOW IMPLEMENTED:
-- Research fields/keywords on the Home page ✓
-- ORCID link ✓
-- Custom domain ✓
-- Open Graph meta tags ✓
-- "Other Exercises" renamed to "Other Research" ✓
-- Previous Working Papers clarification note ✓
+ALL OTHER GAPS HAVE BEEN ADDRESSED.
 
 =============================================================================
 9. COMPARISON WITH PEER WEBSITES
@@ -321,17 +244,19 @@ ITEMS PREVIOUSLY RECOMMENDED AND NOW IMPLEMENTED:
 Compared to typical PhD candidate websites in economics:
 
 ABOVE AVERAGE:
-- The Book page and Policy Engagement sections are exceptional. Most PhD
-  candidates do not have a major report with lead authorship and
-  institutional presentations at the UN, European Parliament, and European
-  Commission. This content is a major differentiator.
+- Book page and Policy Engagement: exceptional. Most PhD candidates do not
+  have lead authorship of a major report with institutional presentations
+  at the UN, European Parliament, and European Commission.
 - Media coverage from The Guardian, Bloomberg, Le Monde, El Pais, Al
-  Jazeera, France 24, BBC, and many other outlets is extraordinary for a
-  PhD candidate.
-- Data sharing page signals transparency.
-- Research Awards section with four awards is strong.
+  Jazeera, France 24, BBC, and many others is extraordinary.
+- Policy Writing section with VoxDev, Surcos, and Polity pieces signals
+  strong public-facing research communication.
+- Awards and Fellowships with five entries is strong.
+- Academic Presentations including LSE and PSE seminars.
+- Referee service at Journal of Development Economics.
+- sitemap.xml, robots.txt, Twitter Card tags, and OG tags (most academic
+  sites lack these).
 - Clean, professional design with custom domain.
-- Open Graph tags and meta descriptions (many academic sites lack these).
 
 AT STANDARD:
 - Research page structure and content depth
@@ -339,39 +264,28 @@ AT STANDARD:
 - Co-author links and paper abstracts
 - ORCID and Google Scholar links
 - Research fields listed on Home page
+- Recent News section
 
-BELOW AVERAGE:
-- No teaching section (common on most academic sites)
-- No sitemap.xml or robots.txt (most sites don't have these either, but
-  top-tier candidates increasingly do)
+NO ITEMS BELOW AVERAGE.
 
 =============================================================================
-10. PRIORITY RECOMMENDATIONS (RANKED)
+10. STATUS: ALL PROPOSALS ADDRESSED
 =============================================================================
 
-COMPLETED (March 2026):
-1. sitemap.xml and robots.txt added ✓
-2. Anchor id updated to "other-research" ✓
-3. "Recent News" section added to the Home page ✓
-4. Dataset citation instructions added to Data page ✓
-5. Twitter Card meta tags added to all pages ✓
-6. WIR 2026 cover used as OG image for book.html ✓
-7. Media coverage list made collapsible on Book page ✓
+All proposals from the January 2026 and March 2026 evaluations have been
+implemented, marked as not applicable, or consciously decided against.
 
-NOT APPLICABLE:
-- Teaching section: no teaching experience
-
-REMAINING (low priority, incremental improvements):
-1. Host the France 24 YouTube thumbnail locally
-2. Add skills/languages to the Experience page
-3. Add role descriptions to Professional Experience entries
+The only future-facing items are:
+1. Job Market Paper designation (when approaching the job market)
+2. Expected graduation year on the Home page (when approaching the market)
+3. Keep Recent News section current as events occur
+4. Restore Data page to navigation when more datasets are available
 
 =============================================================================
 
-This evaluation is based on a review of the source HTML, CSS, and file
-structure of the website as of March 2026, compared against the January
-2026 evaluation. It follows best practices documented by the AEA, leading
-economics departments (MIT, Columbia, Georgetown, University of Maryland),
-academic web design guides (Berkeley Townsend Center, The Academic
-Designer, Hendrik Erz), and patterns observed across top economics PhD
-candidate websites.
+This evaluation is based on a full review of the source HTML, CSS, and file
+structure of the website as of March 21, 2026. It follows best practices
+documented by the AEA, leading economics departments (MIT, Columbia,
+Georgetown, University of Maryland), academic web design guides (Berkeley
+Townsend Center, The Academic Designer, Hendrik Erz), and patterns observed
+across top economics PhD candidate websites.

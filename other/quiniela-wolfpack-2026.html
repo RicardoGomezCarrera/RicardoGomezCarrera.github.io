@@ -594,9 +594,63 @@
 <!-- MAIN QUINIELA -->
 <div id="quiniela">
   <div class="tab-bar">
+    <button class="tab" onclick="showTab('info', this)">Info</button>
     <button class="tab active" onclick="showTab('grupos', this)">Fase de Grupos</button>
     <button class="tab" onclick="showTab('finales', this)">Eliminatoria</button>
     <button class="tab" onclick="showTab('tabla', this)">Tabla</button>
+    <button class="tab" onclick="showTab('admin', this)">Resultados</button>
+  </div>
+
+  <div id="tab-info" style="display:none">
+    <div class="final-section" style="border-color:var(--gold);">
+      <h2>📋 INSTRUCCIONES</h2>
+      <div style="max-width:600px;margin:0 auto;font-family:'Barlow',sans-serif;font-size:0.95rem;line-height:1.7;color:var(--text);">
+
+        <div style="margin-bottom:24px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">💰 CUOTA Y PREMIO</div>
+          <p>La cuota de entrada es de <strong style="color:var(--gold);">$1,000 MXN</strong> por jugador.</p>
+          <p>El ganador se lleva todo el pozo: <strong style="color:var(--gold);">$13,000 MXN</strong> (si todos participan).</p>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:6px;">Se considera que participas si metes al menos un resultado. Si no quieres participar, hazlo saber.</p>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">⚽ SISTEMA DE PUNTOS</div>
+          <p>Cada predicción se compara contra el resultado real del partido:</p>
+          <div style="background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:16px;margin:12px 0;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+              <span style="background:rgba(76,175,80,0.2);color:var(--green);border:1px solid rgba(76,175,80,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;">3 PTS</span>
+              <span><strong>Marcador exacto</strong> — acertaste el resultado exacto (ej: pusiste 2-1 y fue 2-1)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+              <span style="background:rgba(255,152,0,0.2);color:var(--draw);border:1px solid rgba(255,152,0,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;">1 PT</span>
+              <span><strong>Resultado correcto</strong> — acertaste quién gana o si es empate, pero no el marcador (ej: pusiste 3-1 y fue 2-0)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="background:rgba(233,69,96,0.2);color:var(--loss);border:1px solid rgba(233,69,96,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;">0 PTS</span>
+              <span><strong>Fallo</strong> — no acertaste ni el resultado</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">🔒 BLOQUEO DE PREDICCIONES</div>
+          <p>Las predicciones de cada partido se bloquean <strong style="color:var(--accent);">1 hora antes</strong> de que inicie el partido. Después de eso ya no puedes modificar tu predicción para ese partido.</p>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:6px;">Los horarios se muestran en hora de Ciudad de México (CDMX).</p>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">📅 FASES</div>
+          <p><strong style="color:var(--gold);">Fase de Grupos:</strong> ya puedes llenar tus predicciones desde ahora.</p>
+          <p><strong style="color:var(--gold);">Fase Eliminatoria:</strong> se habilitará cuando termine la fase de grupos y se conozcan los clasificados.</p>
+        </div>
+
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">👤 TU QUINIELA</div>
+          <p>Solo puedes editar tu propia quiniela. Puedes ver las predicciones de los demás jugadores pero no modificarlas.</p>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <div id="tab-grupos">
@@ -626,6 +680,14 @@
 
   <div id="tab-tabla" style="display:none">
     <div id="scoreboardContent"></div>
+  </div>
+
+  <div id="tab-admin" style="display:none">
+    <div class="final-section">
+      <h2>⚙️ RESULTADOS REALES</h2>
+      <p style="text-align:center;color:var(--muted);font-size:0.85rem;margin-bottom:20px;">Ingresa los marcadores reales de cada partido conforme se jueguen.</p>
+      <div class="groups-grid" id="adminGroupsGrid"></div>
+    </div>
   </div>
 </div>
 
@@ -814,6 +876,7 @@ let pendingLogin = null;
 // In-memory cache of all players' data (synced from Firebase)
 let allPredictions = {};  // { playerName: { matchId: {home, away} } }
 let allFinals = {};       // { playerName: { roundId: 'team' } }
+let realResults = {};     // { matchId: {home, away} } — actual match results
 let finalsUnlockedState = false;
 
 // ─── FIREBASE HELPERS ───
@@ -827,6 +890,14 @@ function savePredToFirebase(player, mid, pred) {
 
 function saveFinalToFirebase(player, roundId, value) {
   db.ref(`finals/${player}/${roundId}`).set(value || null);
+}
+
+function saveRealResult(mid, result) {
+  if (result) {
+    db.ref(`results/${mid}`).set(result);
+  } else {
+    db.ref(`results/${mid}`).remove();
+  }
 }
 
 function setFinalsUnlocked(val) {
@@ -866,6 +937,15 @@ function setupFirebaseListeners() {
     }
   });
 
+  // Listen to real results
+  db.ref('results').on('value', snap => {
+    realResults = snap.val() || {};
+    if (viewingPlayer) {
+      refreshGroups();
+      refreshAdminResults();
+    }
+  });
+
   // Listen to settings
   db.ref('settings/finalsUnlocked').on('value', snap => {
     finalsUnlockedState = snap.val() === true;
@@ -878,8 +958,8 @@ function setupFirebaseListeners() {
 // ─── DATE HELPERS ───
 function formatMatchDate(isoStr) {
   const d = new Date(isoStr);
-  const opts = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false };
-  return d.toLocaleDateString('es-MX', opts).replace(',', ' ·');
+  const opts = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'America/Mexico_City' };
+  return d.toLocaleDateString('es-MX', opts).replace(',', ' ·') + ' CDMX';
 }
 
 function isMatchLocked(isoStr) {
@@ -936,6 +1016,7 @@ function enterQuiniela() {
   buildPlayerSelectors();
   buildGroups();
   buildFinales();
+  buildAdminResults();
   selectViewing(loggedPlayer);
 }
 
@@ -1180,35 +1261,125 @@ function updateProgress() {
 function showTab(tab, btn) {
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  ['grupos','finales','tabla'].forEach(t => {
-    document.getElementById(`tab-${t}`).style.display = t === tab ? 'block' : 'none';
+  ['info','grupos','finales','tabla','admin'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
   });
   if (tab === 'tabla') buildScoreboard();
   if (tab === 'finales') { buildFinales(); refreshFinales(); }
+  if (tab === 'admin') { buildAdminResults(); refreshAdminResults(); }
+}
+
+// ─── ADMIN: REAL RESULTS ───
+function buildAdminResults() {
+  const grid = document.getElementById('adminGroupsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  Object.entries(GROUPS).forEach(([letter, {teams, matches}]) => {
+    const card = document.createElement('div');
+    card.className = 'group-card';
+    const teamNames = teams.map(t => t.split(' ').slice(1).join(' '));
+    card.innerHTML = `
+      <div class="group-header">
+        <div class="group-letter">${letter}</div>
+        <div class="group-teams-names">${teamNames.join(' · ')}</div>
+      </div>
+      <div class="matches-list" id="admin-matches-${letter}">
+        ${matches.map((m, mi) => buildAdminMatchRow(letter, teams, m, mi)).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  refreshAdminResults();
+}
+
+function buildAdminMatchRow(letter, teams, match, mi) {
+  const [hi, ai, dateStr] = match;
+  const mid = getMatchId(letter, mi);
+  const hFlag = teams[hi].split(' ')[0];
+  const hName = teams[hi].split(' ').slice(1).join(' ');
+  const aFlag = teams[ai].split(' ')[0];
+  const aName = teams[ai].split(' ').slice(1).join(' ');
+  const dateLabel = formatMatchDate(dateStr);
+
+  return `
+    <div class="match-row" id="admin-row-${mid}">
+      <div class="match-meta">
+        <span class="match-date">${dateLabel}</span>
+      </div>
+      <div class="match-content">
+        <div class="team-name team-home">${hName}</div>
+        <div class="team-flag">${hFlag}</div>
+        <div class="score-inputs">
+          <input type="number" class="score-input" id="rh-${mid}" min="0" max="20" placeholder="-"
+            onchange="onRealResultChange('${mid}')" oninput="onRealResultChange('${mid}')"
+            style="border-color:var(--accent)">
+          <span class="dash">—</span>
+          <input type="number" class="score-input" id="ra-${mid}" min="0" max="20" placeholder="-"
+            onchange="onRealResultChange('${mid}')" oninput="onRealResultChange('${mid}')"
+            style="border-color:var(--accent)">
+        </div>
+        <div class="team-flag">${aFlag}</div>
+        <div class="team-name team-away">${aName}</div>
+      </div>
+    </div>
+  `;
+}
+
+function onRealResultChange(mid) {
+  if (loggedPlayer !== 'Ricardo') return;
+  const h = document.getElementById(`rh-${mid}`).value;
+  const a = document.getElementById(`ra-${mid}`).value;
+  if (h !== '' && a !== '') {
+    saveRealResult(mid, { home: parseInt(h), away: parseInt(a) });
+  } else {
+    saveRealResult(mid, null);
+  }
+}
+
+function refreshAdminResults() {
+  const isAdmin = loggedPlayer === 'Ricardo';
+  Object.entries(GROUPS).forEach(([letter, {matches}]) => {
+    matches.forEach((match, mi) => {
+      const mid = getMatchId(letter, mi);
+      const hEl = document.getElementById(`rh-${mid}`);
+      const aEl = document.getElementById(`ra-${mid}`);
+      if (!hEl) return;
+      const result = realResults[mid];
+      if (result) {
+        hEl.value = result.home;
+        aEl.value = result.away;
+      } else {
+        hEl.value = '';
+        aEl.value = '';
+      }
+      hEl.disabled = !isAdmin;
+      aEl.disabled = !isAdmin;
+    });
+  });
 }
 
 // ─── SCOREBOARD ───
 function buildScoreboard() {
-  // Count filled predictions and compare with other players
+  const totalReal = Object.keys(realResults).length;
+
+  // Compare each player's predictions against real results
   const scores = PLAYERS.map(name => {
     const preds = allPredictions[name] || {};
     const filled = Object.keys(preds).length;
     let pts = 0, exact = 0, result = 0;
 
-    PLAYERS.forEach(other => {
-      if (other === name) return;
-      const op = allPredictions[other] || {};
-      Object.keys(preds).forEach(mid => {
-        const p = preds[mid];
-        const o = op[mid];
-        if (!o) return;
-        if (p.home === o.home && p.away === o.away) { pts += 3; exact++; }
-        else {
-          const pr = Math.sign(p.home - p.away);
-          const or2 = Math.sign(o.home - o.away);
-          if (pr === or2) { pts += 1; result++; }
-        }
-      });
+    Object.keys(realResults).forEach(mid => {
+      const real = realResults[mid];
+      const pred = preds[mid];
+      if (!pred || !real) return;
+      if (pred.home === real.home && pred.away === real.away) {
+        pts += 3; exact++;
+      } else {
+        const predSign = Math.sign(pred.home - pred.away);
+        const realSign = Math.sign(real.home - real.away);
+        if (predSign === realSign) { pts += 1; result++; }
+      }
     });
 
     const finals = allFinals[name] || {};
@@ -1244,7 +1415,7 @@ function buildScoreboard() {
     html += `<tr>
       <td class="rank-num rank-${i+1}">${i+1}</td>
       <td class="rank-name">${s.name}</td>
-      <td class="rank-detail">${s.filled} partidos · ${s.exact} exactos · ${s.result} resultados</td>
+      <td class="rank-detail">${s.exact} exactos · ${s.result} acertados · ${s.filled} predicciones</td>
       <td style="font-family:'Barlow Condensed';color:var(--muted)">${s.campeon}</td>
       <td class="rank-pts">${s.pts}</td>
     </tr>`;
@@ -1252,7 +1423,7 @@ function buildScoreboard() {
 
   html += `</tbody></table>
     <p style="text-align:center;color:var(--muted);font-size:0.8rem;margin-top:16px;font-family:'Barlow Condensed';letter-spacing:1px">
-      PUNTUACIÓN: Resultado exacto = 3 pts · Resultado correcto (1X2) = 1 pt
+      PUNTUACIÓN: Marcador exacto = 3 pts · Resultado correcto (1X2) = 1 pt · Partidos con resultado real: ${totalReal}
     </p>`;
 
   document.getElementById('scoreboardContent').innerHTML = html;

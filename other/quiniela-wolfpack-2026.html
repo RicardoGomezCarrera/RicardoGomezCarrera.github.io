@@ -27,6 +27,7 @@
     color: var(--text);
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
+    overflow-x: hidden;
     background-image:
       radial-gradient(ellipse at 20% 50%, rgba(15,52,96,0.3) 0%, transparent 60%),
       radial-gradient(ellipse at 80% 20%, rgba(233,69,96,0.15) 0%, transparent 50%);
@@ -256,7 +257,7 @@
   /* GROUPS */
   .groups-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
     gap: 20px;
     margin-bottom: 40px;
   }
@@ -556,6 +557,40 @@
     .groups-grid { grid-template-columns: 1fr; }
     .top-bar { justify-content: center; }
     .login-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+
+    .tab-bar {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+      border-bottom: none;
+    }
+    .tab { padding: 8px 12px; font-size: 0.75rem; letter-spacing: 1px; }
+
+    .player-selector { gap: 4px; }
+    .player-btn { padding: 4px 8px; font-size: 0.7rem; }
+
+    .match-content { gap: 4px; }
+    .team-name { font-size: 0.75rem; }
+    .team-flag { font-size: 1rem; }
+    .score-input { width: 30px; height: 30px; font-size: 1rem; }
+    .result-badge { width: 24px; height: 18px; font-size: 0.6rem; }
+    .match-row { padding: 6px 10px; }
+
+    .ranking-table th, .ranking-table td { padding: 8px 6px; font-size: 0.8rem; }
+    .rank-num { font-size: 1.1rem; }
+    .rank-name { font-size: 0.9rem; }
+    .rank-pts { font-size: 1.2rem; }
+    .rank-detail { font-size: 0.65rem; }
+
+    #quiniela { padding: 12px; }
+    header { padding: 24px 16px 20px; }
+    h1 { font-size: clamp(2rem, 8vw, 4rem); }
+
+    .ranking-table { display: block; overflow-x: auto; }
+    .ranking-table thead, .ranking-table tbody, .ranking-table tr { display: table; width: 100%; table-layout: fixed; }
+
+    .final-section { padding: 16px; }
+    .admin-section { padding: 14px; }
   }
 </style>
 </head>
@@ -617,16 +652,16 @@
           <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:8px;">⚽ SISTEMA DE PUNTOS</div>
           <p>Cada predicción se compara contra el resultado real del partido:</p>
           <div style="background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:16px;margin:12px 0;">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-              <span style="background:rgba(76,175,80,0.2);color:var(--green);border:1px solid rgba(76,175,80,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;">3 PTS</span>
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+              <span style="background:rgba(76,175,80,0.2);color:var(--green);border:1px solid rgba(76,175,80,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;flex-shrink:0;">3 PTS</span>
               <span><strong>Marcador exacto</strong> — acertaste el resultado exacto (ej: pusiste 2-1 y fue 2-1)</span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-              <span style="background:rgba(255,152,0,0.2);color:var(--draw);border:1px solid rgba(255,152,0,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;">1 PT</span>
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+              <span style="background:rgba(255,152,0,0.2);color:var(--draw);border:1px solid rgba(255,152,0,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;flex-shrink:0;">1 PT</span>
               <span><strong>Resultado correcto</strong> — acertaste quién gana o si es empate, pero no el marcador (ej: pusiste 3-1 y fue 2-0)</span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span style="background:rgba(233,69,96,0.2);color:var(--loss);border:1px solid rgba(233,69,96,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;">0 PTS</span>
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <span style="background:rgba(233,69,96,0.2);color:var(--loss);border:1px solid rgba(233,69,96,0.3);padding:4px 10px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;min-width:60px;text-align:center;display:inline-block;flex-shrink:0;">0 PTS</span>
               <span><strong>Fallo</strong> — no acertaste ni el resultado</span>
             </div>
           </div>
